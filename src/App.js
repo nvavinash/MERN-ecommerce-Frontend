@@ -5,6 +5,7 @@ import './App.css';
 import Home from './pages/Home';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
+import CartPage from './pages/CartPage';
 import { createRoot } from "react-dom/client";
 import {
   createBrowserRouter,
@@ -12,6 +13,7 @@ import {
   Route,
   Link,
 } from "react-router-dom";
+
 
 const router = createBrowserRouter([
   {
@@ -27,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: "/signUp",
     element: <SignUpPage/>,
+  },
+  {
+    path: "/cart",
+    element: <CartPage/>,
   },
 ]);
 

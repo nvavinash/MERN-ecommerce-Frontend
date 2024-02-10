@@ -376,7 +376,11 @@ export default function ProductList() {
     </div></div>
             </div>
           </section>
-          {/* Section of product filter ------------------------- */}
+
+          
+          {/*------------ Section of product filter ------------------------- */}
+
+
           <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
       <div className="flex flex-1 justify-between sm:hidden">
         <a
