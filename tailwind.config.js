@@ -7,6 +7,8 @@ module.exports = {
         'custom-nav': '#2E4257',
         'custom-btn': '#FF5800',
         // Add more custom colors as needed
+        gridTemplateRows: {
+          '[auto,auto,1fr]': 'auto auto 1fr',}
       },
     },
   },
