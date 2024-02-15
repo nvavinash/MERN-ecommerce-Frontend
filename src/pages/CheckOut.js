@@ -224,7 +224,7 @@ const CheckOut = () => {
           <ul role="list" className="divide-y divide-gray-100">
             
       {addresses.map((address) => (
-        <li key={address.email} className="flex justify-between gap-x-6 py-5 px-50">
+        <li key={address.phone} className="flex justify-between gap-x-6 py-5 px-50">
           <div className="flex min-w-0 gap-x-4">
             <input type="radio" name="address"/>
             <div className="min-w-0 flex-auto">
