@@ -9,12 +9,20 @@ export function fetchAllProducts() {
   );
 }
 
-export function fetchProductsByFilter(filter) {
+export function fetchProductsByFilter({filter,sort}) {
   //filter = {"category" : "smartphone"}
   let queryString = '';
   for(let key in filter){
-    queryString += `${key}=${filter[key]}&`
-    console.log(queryString);
+    const categoryValue = filter[key];
+    console.log(categoryValue[categoryValue.length-1]);
+    if(categoryValue.length > 0){
+      const lastCategoryValue = categoryValue[categoryValue.length-1];
+    queryString += `${key}=${lastCategoryValue}&`
+    }
+  }
+
+  for(let key in sort){
+    queryString += `${key}=${sort[key]}&`;
   }
   return new Promise(async (resolve) =>{
     const response = await fetch('http://localhost:8080/products?'+queryString)

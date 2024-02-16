@@ -73,17 +73,31 @@ function classNames(...classes) {
 export default function ProductList() {
   const dispatch = useDispatch();
   const [filter, setFilter] = useState({});
+  const [sort, setSort] = useState({});
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const products = useSelector(selectAllProducts);
 
   const handleFilter = (e, section, option) => {
-    const newFilter = { ...filter, [section.id]: option.value };
+    
+    const newFilter = { ...filter};
+    if(e.target.checked){
+      if(newFilter[section.id]){
+        newFilter[section.id].push(option.value)  ;
+      }else{
+        newFilter[section.id] = [option.value];
+      }
+      
+    }else{
+      const index = newFilter[section.id].findIndex(el => el === option.value)
+      newFilter[section.id].splice(index,1)
+    }
     setFilter(newFilter);
   };
 
   const handleSort = (e, option) => {
-    const newFilter = { ...filter, _sort: option.sort }; //sorting on behalf of regular price not on discount price
-    setFilter(newFilter);
+    const sort = { _sort: option.sort }; //sorting on behalf of regular price not on discount price
+    console.log({sort})
+    setSort(sort);
   };
   // useEffect(()=>{
   //   dispatch(fetchAllProductsAsync(filter));
@@ -91,8 +105,8 @@ export default function ProductList() {
 
   useEffect(() => {
     // Fetch products whenever filter changes
-    dispatch(fetchProductsByFilterAsync(filter));
-  }, [dispatch, filter]);
+    dispatch(fetchProductsByFilterAsync({filter,sort}));
+  }, [dispatch, filter, sort]);
 
   return (
     <div>
