@@ -598,5 +598,25 @@
       }
 
 
-]}
+],
+"brands":
+[
+  { "value": "Apple", "label": "Apple", "checked": false },
+  { "value": "Samsung", "label": "Samsung", "checked": false },
+  { "value": "blueberry", "label": "BlueBerry", "checked": false },
+  { "value": "addidas", "label": "Addidas", "checked": false },
+  { "value": "reebok", "label": "Reebok", "checked": false },
+  { "value": "puma", "label": "Puma", "checked": false }
+],
+"categories": [
+  { "value": "bag", "label": "Bag", "checked": false },
+  { "value": "tShirt", "label": "T-Shirt", "checked": false },
+  { "value": "clutch", "label": "Clutch", "checked": false },
+  { "value": "blackCrockery", "label": "Black Crockery", "checked": false },
+  { "value": "accessories", "label": "Accessories", "checked": false },
+  { "value": "smartphones", "label": "SmartPhone", "checked": false },
+  { "value": "laptops", "label": "Laptop", "checked": false }
+]
+
+}
   

@@ -3,7 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   selectAllProducts,
   fetchProductsByFilterAsync,
-  selectTotalItems
+  selectTotalItems,
+  selectBrands,
+  selectCategories,
+  fetchBrandsAsync,
+  fetchCategoriesAsync
 } from "../productSlice";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -26,46 +30,7 @@ const sortOptions = [
   { name: "Price: High to Low", sort: "-price", order: "desc", current: false },
 ];
 
-const filters = [
-  {
-    id: "category",
-    name: "Category",
-    options: [
-      { value: "bag", label: "Bag", checked: false },
-      { value: "tShirt", label: "T-Shirt", checked: false },
-      { value: "clutch", label: "Clutch", checked: false },
-      { value: "blackCrockery", label: "Black Crockery", checked: false },
-      { value: "accessories", label: "Accessories", checked: false },
-      { value: "smartphones", label: "SmartPhone", checked: false },
-      { value: "laptops", label: "Laptop", checked: false },
-    ],
-  },
-  {
-    id: "brand",
-    name: "Brands",
-    options: [
-      { value: "Apple", label: "Apple", checked: false },
-      { value: "Samsung", label: "Samsung", checked: false },
-      { value: "blueberry", label: "BlueBerry", checked: false },
-      { value: "addidas", label: "Addidas", checked: false },
-      { value: "reebok", label: "Reebok", checked: false },
-      { value: "puma", label: "Puma", checked: false },
-    ],
-  },
 
-  // {
-  //   id: "size",
-  //   name: "Size",
-  //   options: [
-  //     { value: "2l", label: "2L", checked: false },
-  //     { value: "6l", label: "6L", checked: false },
-  //     { value: "12l", label: "12L", checked: false },
-  //     { value: "18l", label: "18L", checked: false },
-  //     { value: "20l", label: "20L", checked: false },
-  //     { value: "40l", label: "40L", checked: true },
-  //   ],
-  // },
-];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -74,20 +39,40 @@ function classNames(...classes) {
 export default function ProductList() {
   const dispatch = useDispatch();
   const products = useSelector(selectAllProducts);
-
   const totalItems = useSelector(selectTotalItems);
+  const brands = useSelector(selectBrands);
+  const categories = useSelector(selectCategories);
 
+  const filters = [
+    {
+      id: "category",
+      name: "Category",
+      options: categories,
+    },
+    {
+      id: "brand",
+      name: "Brands",
+      options: brands,
+    },
+  
+    // {
+    //   id: "size",
+    //   name: "Size",
+    //   options: [
+    //     { value: "2l", label: "2L", checked: false },
+    //     { value: "6l", label: "6L", checked: false },
+    //     { value: "12l", label: "12L", checked: false },
+    //     { value: "18l", label: "18L", checked: false },
+    //     { value: "20l", label: "20L", checked: false },
+    //     { value: "40l", label: "40L", checked: true },
+    //   ],
+    // },
+  ];
 
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState({});
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [page, setPage] = useState(1);
-
-  
-
- 
-  
-
 
   const handleFilter = (e, section, option) => {
     const newFilter = { ...filter };
@@ -112,19 +97,24 @@ export default function ProductList() {
   };
 
   const handlePage = (page) => {
-    console.log({page});
+    console.log({ page });
     setPage(page);
   };
 
   useEffect(() => {
     // Fetch products whenever filter changes
     const pagination = { _page: page, _per_page: ITEM_PER_PAGE };
-    dispatch(fetchProductsByFilterAsync( {filter, sort, pagination }));
+    dispatch(fetchProductsByFilterAsync({ filter, sort, pagination }));
   }, [dispatch, filter, sort, page]);
 
+  useEffect(() => {
+    setPage(1);
+  }, [totalItems, sort]);
+
   useEffect(()=>{
-    setPage(1)
-  },[totalItems,sort])
+    dispatch(fetchBrandsAsync());
+    dispatch(fetchCategoriesAsync());
+  },[])
 
   return (
     <div>
@@ -135,6 +125,7 @@ export default function ProductList() {
             handleFilter={handleFilter}
             mobileFiltersOpen={mobileFiltersOpen}
             setMobileFiltersOpen={setMobileFiltersOpen}
+            filters ={filters}
           />
 
           <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -212,17 +203,15 @@ export default function ProductList() {
                 Products
               </h2>
 
-
-
               <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-                <DesktopFilter handleFilter={handleFilter} />
+                <DesktopFilter handleFilter={handleFilter} filters={filters}/>
                 {/*=====================================================================================Web page Filters */}
 
                 {/* Product grid --------------------------------------------------*/}
                 <div className="lg:col-span-3">
                   {" "}
                   {/* //Product page Mobile */}
-                  <ProductGrid data={products}/>
+                  <ProductGrid data={products} />
                 </div>
               </div>
             </section>
@@ -230,7 +219,12 @@ export default function ProductList() {
             {/*------------ Section of product filter ------------------------- */}
 
             {/*this is pagination  */}
-            <Pagination handlePage={handlePage} page={page} setPage={setPage} totalItems={totalItems}/>
+            <Pagination
+              handlePage={handlePage}
+              page={page}
+              setPage={setPage}
+              totalItems={totalItems}
+            />
           </main>
         </div>
       </div>
@@ -242,6 +236,7 @@ function MobileFilter({
   mobileFiltersOpen,
   setMobileFiltersOpen,
   handleFilter,
+  filters,
 }) {
   return (
     <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -359,7 +354,7 @@ function MobileFilter({
   );
 }
 
-function DesktopFilter({ handleFilter }) {
+function DesktopFilter({ handleFilter, filters}) {
   return (
     <>
       <form className="hidden lg:block">
@@ -419,22 +414,23 @@ function DesktopFilter({ handleFilter }) {
   );
 }
 
-function Pagination({ handlePage, page, setPage,totalItems}) {
+function Pagination({ handlePage, page, setPage, totalItems }) {
+  const totalPages = Math.ceil(totalItems/ITEM_PER_PAGE);
   return (
     <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
       <div className="flex flex-1 justify-between sm:hidden">
-        <Link
-          href="#"
+        <div
+          onClick={(e)=>{handlePage(page > 1 ? page -1 :page)}}
           className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
         >
           Previous
-        </Link>
-        <Link
-          href="#"
+        </div>
+        <div
+          onClick={(e)=>{handlePage(page<totalPages?page+1:page)}}
           className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
         >
           Next
-        </Link>
+        </div>
       </div>
       <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
@@ -443,8 +439,13 @@ function Pagination({ handlePage, page, setPage,totalItems}) {
             <span className="font-medium">
               {(page - 1) * ITEM_PER_PAGE + 1}
             </span>{" "}
-            to <span className="font-medium">{(page*ITEM_PER_PAGE < totalItems)? page * ITEM_PER_PAGE : totalItems}</span> of{" "}
-            <span className="font-medium">{totalItems}</span> results
+            to{" "}
+            <span className="font-medium">
+              {page * ITEM_PER_PAGE < totalItems
+                ? page * ITEM_PER_PAGE
+                : totalItems}
+            </span>{" "}
+            of <span className="font-medium">{totalItems}</span> results
           </p>
         </div>
         <div>
@@ -452,20 +453,24 @@ function Pagination({ handlePage, page, setPage,totalItems}) {
             className="isolate inline-flex -space-x-px rounded-md shadow-sm"
             aria-label="Pagination"
           >
-            <Link
-              href="#"
+            <div
+             onClick={(e)=>{handlePage(page > 1 ? page -1 :page)}}
               className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
             >
               <span className="sr-only">Previous</span>
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
-            </Link>
+            </div>
             {/* Current: "z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", Default: "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0" */}
-            {Array.from({ length: Math.ceil(totalItems / ITEM_PER_PAGE) }).map(
+            {Array.from({ length: totalPages }).map(
               (el, index) => (
                 <div
                   key={index}
                   aria-current="page"
-                  className={`"relative cursor-pointer z-10 inline-flex items-center ${index+1 === page ? "bg-indigo-600 text-white":"text-gray-400"} px-4 py-2 text-sm font-semibold focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"`}
+                  className={`"relative cursor-pointer z-10 inline-flex items-center ${
+                    index + 1 === page
+                      ? "bg-indigo-600 text-white"
+                      : "text-gray-400"
+                  } px-4 py-2 text-sm font-semibold focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"`}
                   onClick={(e) => handlePage(index + 1)}
                 >
                   {index + 1}
@@ -473,13 +478,13 @@ function Pagination({ handlePage, page, setPage,totalItems}) {
               )
             )}
 
-            <Link
-              href="#"
+            <div
+              onClick={(e)=>{handlePage(page < totalPages ?page+1: page)}}
               className="relative  inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
             >
               <span className="sr-only">Next</span>
               <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
-            </Link>
+            </div>
           </nav>
         </div>
       </div>
@@ -487,7 +492,7 @@ function Pagination({ handlePage, page, setPage,totalItems}) {
   );
 }
 
-function ProductGrid({data}){
+function ProductGrid({ data }) {
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
