@@ -102,7 +102,7 @@ export default function ProductList() {
   };
 
   useEffect(() => {
-    // Fetch products whenever filter changes
+    // Fetch products whenever filter,sort or  page changes
     const pagination = { _page: page, _per_page: ITEM_PER_PAGE };
     dispatch(fetchProductsByFilterAsync({ filter, sort, pagination }));
   }, [dispatch, filter, sort, page]);

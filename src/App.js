@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import CartPage from './pages/CartPage';
 import { createRoot } from "react-dom/client";
+import Protected from './features/auth/components/Protected';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -22,8 +23,11 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
+     <Protected>
       <Home/>
-    ),
+     </Protected>
+        
+      ),
   },
   {
     path: "/login",
@@ -39,7 +43,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/checkOutPage",
-    element: <CheckOut/>,
+    element: <Protected><CheckOut/></Protected>,
   },
   {
     path: "/productDetailsPage/:id",

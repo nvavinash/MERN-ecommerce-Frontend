@@ -7,7 +7,7 @@ function Home() {
     <>
     <Navbar>
         <ProductList/>
-    </Navbar>
+        </Navbar>
     </>
       
   
