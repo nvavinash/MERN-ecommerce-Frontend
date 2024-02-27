@@ -1,10 +1,10 @@
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { increment, incrementAsync, selectCount } from "../features/cart/cartSlice";
+import { increment, incrementAsync, selectCount, selectItems } from "../features/cart/cartSlice";
 
 const CheckOut = () => {
-    const count = useSelector(selectCount);
+    const count = useSelector(selectItems);
     const dispatch = useDispatch();
     const [open, setOpen] = useState(true);
   
