@@ -698,22 +698,57 @@
     {
       "id": "3263",
       "email": "avinashmk42@gmail.com",
-      "password": "Abarai@123"
+      "password": "Abarai@123",
+      "addresses": [
+        {
+          "name": "shivam",
+          "email": "avinashmk42@gmail.com",
+          "phone": "8299177208",
+          "country": "India",
+          "street": "dihwa bhadi",
+          "city": "Shahganj",
+          "state": "uttar pradesh",
+          "pinCode": "223101"
+        },
+        {
+          "name": "mohan lal chaura",
+          "email": "mohan@gmail.com",
+          "phone": "8604288313",
+          "country": "India",
+          "street": "azamgarh road",
+          "city": "shahganj",
+          "state": "up",
+          "pinCode": "223101"
+        },
+        {
+          "name": "arti chaurasiya",
+          "email": "arti@gmail.com",
+          "phone": "9044207635",
+          "country": "India",
+          "street": "bhedaura maharajganj",
+          "city": "Azamgarh",
+          "state": "uttar pradesh",
+          "pinCode": "223101"
+        }
+      ]
     },
     {
       "id": "b501",
       "email": "avinash.fortax@gmail.com",
-      "password": "Abarai@123"
+      "password": "Abarai@123",
+      "addresses": []
     },
     {
       "id": "156a",
       "email": "avinash.fortax@gmail.com",
-      "password": "Abarai@123"
+      "password": "Abarai@123",
+      "addresses": []
     },
     {
       "id": "dada",
       "email": "test@gmail.com",
-      "password": "avinashb"
+      "password": "avinashb",
+      "addresses": []
     }
   ],
   "cart": [
@@ -737,33 +772,30 @@
         "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg"
       ],
       "quantity": 1,
-      "users": "3263"
-    },
-    {
-      "id": "111",
-      "title": "Medium Stuff Satchel",
-      "href": "#",
-      "thumbnail": "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
-      "imageAlt": "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
-      "price": 550,
-      "discountPrice": 450,
-      "color": "Black",
-      "totalCount": 17,
-      "category": "tShirt",
-      "brand": "addidas",
-      "ratingAverage": 3.7,
-      "stock": 2,
-      "images": [
-        " https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
-        " https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
-        " https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
-        " https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg"
-      ],
-      "quantity": 3,
       "users": "b501"
     },
     {
-      "id": "111",
+      "id": "a046",
+      "title": "iPhone X",
+      "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+      "price": 899,
+      "discountPercentage": 17.94,
+      "rating": 4.44,
+      "stock": 34,
+      "brand": "Apple",
+      "category": "smartphones",
+      "thumbnail": "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg",
+      "images": [
+        "https://cdn.dummyjson.com/product-images/2/1.jpg",
+        "https://cdn.dummyjson.com/product-images/2/2.jpg",
+        "https://cdn.dummyjson.com/product-images/2/3.jpg",
+        "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg"
+      ],
+      "quantity": 1,
+      "users": "b501"
+    },
+    {
+      "id": "766f",
       "title": "Medium Stuff Satchel",
       "href": "#",
       "thumbnail": "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
@@ -783,7 +815,87 @@
         " https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg"
       ],
       "quantity": 1,
-      "users": "b501"
+      "users": "3263"
+    }
+  ],
+  "orders": [
+    {
+      "id": "1d85",
+      "items": [
+        {
+          "id": "766f",
+          "title": "Medium Stuff Satchel",
+          "href": "#",
+          "thumbnail": "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
+          "imageAlt": "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
+          "price": 550,
+          "discountPrice": 450,
+          "color": "Black",
+          "totalCount": 17,
+          "category": "tShirt",
+          "brand": "addidas",
+          "ratingAverage": 3.7,
+          "stock": 2,
+          "images": [
+            " https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
+            " https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
+            " https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
+            " https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg"
+          ],
+          "quantity": 1,
+          "users": "3263"
+        }
+      ],
+      "totalAmount": 450,
+      "totalItems": 1,
+      "user": {
+        "id": "3263",
+        "email": "avinashmk42@gmail.com",
+        "password": "Abarai@123",
+        "addresses": [
+          {
+            "name": "shivam",
+            "email": "avinashmk42@gmail.com",
+            "phone": "8299177208",
+            "country": "India",
+            "street": "dihwa bhadi",
+            "city": "Shahganj",
+            "state": "uttar pradesh",
+            "pinCode": "223101"
+          },
+          {
+            "name": "mohan lal chaura",
+            "email": "mohan@gmail.com",
+            "phone": "8604288313",
+            "country": "India",
+            "street": "azamgarh road",
+            "city": "shahganj",
+            "state": "up",
+            "pinCode": "223101"
+          },
+          {
+            "name": "arti chaurasiya",
+            "email": "arti@gmail.com",
+            "phone": "9044207635",
+            "country": "India",
+            "street": "bhedaura maharajganj",
+            "city": "Azamgarh",
+            "state": "uttar pradesh",
+            "pinCode": "223101"
+          }
+        ]
+      },
+      "paymentMethod": "card",
+      "selectedAddress": {
+        "name": "mohan lal chaura",
+        "email": "mohan@gmail.com",
+        "phone": "8604288313",
+        "country": "India",
+        "street": "azamgarh road",
+        "city": "shahganj",
+        "state": "up",
+        "pinCode": "223101"
+      }
     }
   ]
 }

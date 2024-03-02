@@ -46,4 +46,4 @@ export function deleteItemFromCart(itemId){
     const data = await response.json()
     resolve({data : {itemId: data.id}});
   })
-}
+}    

@@ -66,7 +66,10 @@ export default function ProductDetails() {
   const params = useParams();
   const handleCart = (e) => {
     e.preventDefault();
-    dispatch(addToCartAsync({...product,quantity:1, users:users.id}))
+    const newItem = {...product,quantity:1, users:users.id}
+   
+    delete newItem[`id`]
+    dispatch(addToCartAsync(newItem));
     }
     
 
@@ -76,7 +79,6 @@ export default function ProductDetails() {
 
   return (
     <div className="bg-white">
-      {console.log(users)}
       {product && <div className="pt-6">
         <nav aria-label="Breadcrumb">
           <ol role="list" className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
