@@ -12,13 +12,18 @@ import {
   selectLoggedInUser,
   updateUserAsync,
 } from "../features/auth/authSlice";
-import { createOrderAsync } from "../features/order/orderSlice";
+import {
+  createOrderAsync,
+  selectCurrentOrder,
+} from "../features/order/orderSlice";
+import { toast } from "react-toastify";
 
 const CheckOut = () => {
   const [open, setOpen] = useState(true);
 
   const user = useSelector(selectLoggedInUser);
   const items = useSelector(selectItems);
+  const currentOrder = useSelector(selectCurrentOrder);
   const dispatch = useDispatch();
 
   const totalItems = items.reduce((total, item) => {
@@ -28,21 +33,35 @@ const CheckOut = () => {
   const [selectedAddress, setSeletedAddress] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("card");
 
-  const handleAddress = (e) =>{
+  const handleAddress = (e) => {
     console.log(user.addresses[e.target.value]);
     setSeletedAddress(user.addresses[e.target.value]);
-  }
-  const handlePayment = (e) =>{
-    setPaymentMethod(e.target.value)
-  }
-  const handleOrder = (e) =>{
-    const order = {items,totalAmount,totalItems,user,paymentMethod,selectedAddress}
-    dispatch(createOrderAsync(order));
-    console.log("clicked for order");
-  }
+  };
+  const handlePayment = (e) => {
+    setPaymentMethod(e.target.value);
+  };
+  const handleOrder = (e) => {
+    if (selectedAddress && paymentMethod) {
+      const order = {
+        items,
+        totalAmount,
+        totalItems,
+        user,
+        paymentMethod,
+        selectedAddress,
+        status : "pending", //need to be changed as delivered,received
+        shippingCost
+      };
+      dispatch(createOrderAsync(order));
+      //need to redirect from here to new order succcess page
+    } else {
+      toast.error("Enter Address and Payment Method");
+    }
+  };
+  const shippingCost = 80;
   const totalAmount = items.reduce((amount, item) => {
     const price = item.discountPrice ? item.discountPrice : item.price;
-    return price * item.quantity + amount;
+    return price * item.quantity + amount + shippingCost;
   }, 0);
 
   const handleQuantity = (e, item) => {
@@ -63,6 +82,7 @@ const CheckOut = () => {
   return (
     <>
       {!items.length && <Navigate to="/" replace={true}></Navigate>}
+      {currentOrder && <Navigate to={`/orderSuccess/${currentOrder.id}`} replace={true}></Navigate>}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
           <div className="lg:col-span-3">
@@ -271,7 +291,7 @@ const CheckOut = () => {
                     Choose From Existing Address
                   </p>
                   <ul role="list" className="divide-y divide-gray-100">
-                    {user.addresses.map((address,index) => (
+                    {user.addresses.map((address, index) => (
                       <li
                         key={index}
                         className="flex justify-between gap-x-6 py-5 px-50"
@@ -347,7 +367,7 @@ const CheckOut = () => {
                             value="card"
                             name="payments"
                             type="radio"
-                            checked ={paymentMethod === "card"}
+                            checked={paymentMethod === "card"}
                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                           />
                           <label
@@ -442,6 +462,10 @@ const CheckOut = () => {
               </div>
 
               <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
+              <div className="flex justify-between text-base font-medium text-gray-900">
+                  <p>Shipping Cost</p>
+                  <p>Rs. {shippingCost}</p>
+                </div>
                 <div className="flex justify-between text-base font-medium text-gray-900">
                   <p>Subtotal</p>
                   <p>Rs. {totalAmount}</p>

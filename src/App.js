@@ -16,10 +16,12 @@ import {
 } from "react-router-dom";
 import CheckOut from './pages/CheckOut';
 import ProductDetailsPage from './pages/ProductDetailsPage';
-import { Error } from './pages/error';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLoggedInUser } from './features/auth/authSlice';
 import { fetchItemsByUserIdAsync } from './features/cart/cartSlice';
+import { PageNotFound } from './pages/404';
+import OrderSuccessPage from './pages/OrderSuccessPage';
+import UserOrdersPage from './pages/UserOrdersPage';
 
 
 const router = createBrowserRouter([
@@ -48,15 +50,28 @@ const router = createBrowserRouter([
   },
   {
     path: "/checkOutPage",
-    element: <Protected><CheckOut/></Protected>,
+    element:( <Protected><CheckOut/></Protected>),
   },
   {
     path: "/productDetailsPage/:id",
     element : <ProductDetailsPage/>,
   },
   {
+    path:"/orderSuccess/:id",
+    element : (
+      <OrderSuccessPage/>
+  
+    )
+  },
+  {
+    path:"/orders",
+    element :(
+      <UserOrdersPage/>
+    )
+  },
+  {
     path: "*",
-    element : <Error/>
+    element : <PageNotFound/>
   }
 ]);
 

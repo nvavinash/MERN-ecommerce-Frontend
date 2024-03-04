@@ -736,7 +736,18 @@
       "id": "b501",
       "email": "avinash.fortax@gmail.com",
       "password": "Abarai@123",
-      "addresses": []
+      "addresses": [
+        {
+          "name": "arti chaurasiya",
+          "email": "arti@gmail.com",
+          "phone": "9044207635",
+          "country": "India",
+          "street": "dihwa bhadi",
+          "city": "shahaganj",
+          "state": "uttar pradesh",
+          "pinCode": "223101"
+        }
+      ]
     },
     {
       "id": "156a",
@@ -751,79 +762,13 @@
       "addresses": []
     }
   ],
-  "cart": [
-    {
-      "id": "1",
-      "title": "iPhone 9",
-      "description": "An apple mobile which is nothing like apple",
-      "price": 549,
-      "discountPrice": 449,
-      "ratingAverage": 4.69,
-      "totalCount": 101,
-      "stock": 94,
-      "brand": "Apple",
-      "category": "smartphones",
-      "thumbnail": "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg",
-      "images": [
-        "https://cdn.dummyjson.com/product-images/1/1.jpg",
-        "https://cdn.dummyjson.com/product-images/1/2.jpg",
-        "https://cdn.dummyjson.com/product-images/1/3.jpg",
-        "https://cdn.dummyjson.com/product-images/1/4.jpg",
-        "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg"
-      ],
-      "quantity": 1,
-      "users": "b501"
-    },
-    {
-      "id": "a046",
-      "title": "iPhone X",
-      "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
-      "price": 899,
-      "discountPercentage": 17.94,
-      "rating": 4.44,
-      "stock": 34,
-      "brand": "Apple",
-      "category": "smartphones",
-      "thumbnail": "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg",
-      "images": [
-        "https://cdn.dummyjson.com/product-images/2/1.jpg",
-        "https://cdn.dummyjson.com/product-images/2/2.jpg",
-        "https://cdn.dummyjson.com/product-images/2/3.jpg",
-        "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg"
-      ],
-      "quantity": 1,
-      "users": "b501"
-    },
-    {
-      "id": "766f",
-      "title": "Medium Stuff Satchel",
-      "href": "#",
-      "thumbnail": "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
-      "imageAlt": "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
-      "price": 550,
-      "discountPrice": 450,
-      "color": "Black",
-      "totalCount": 17,
-      "category": "tShirt",
-      "brand": "addidas",
-      "ratingAverage": 3.7,
-      "stock": 2,
-      "images": [
-        " https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
-        " https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
-        " https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
-        " https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg"
-      ],
-      "quantity": 1,
-      "users": "3263"
-    }
-  ],
+  "cart": [],
   "orders": [
     {
-      "id": "1d85",
+      "id": "7f09",
       "items": [
         {
-          "id": "766f",
+          "id": "901d",
           "title": "Medium Stuff Satchel",
           "href": "#",
           "thumbnail": "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
@@ -846,7 +791,7 @@
           "users": "3263"
         }
       ],
-      "totalAmount": 450,
+      "totalAmount": 530,
       "totalItems": 1,
       "user": {
         "id": "3263",
@@ -895,7 +840,9 @@
         "city": "shahganj",
         "state": "up",
         "pinCode": "223101"
-      }
+      },
+      "status": "pending",
+      "shippingCost": 80
     }
   ]
 }
