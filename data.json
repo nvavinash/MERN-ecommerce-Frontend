@@ -13,6 +13,7 @@
       "brand": "puma",
       "totalCount": 117,
       "ratingAverage": 4,
+      "shippingCost": 80,
       "stock": 32,
       "images": [
         "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
@@ -34,6 +35,7 @@
       "category": "tShirt",
       "brand": "addidas",
       "ratingAverage": 3.7,
+      "shippingCost": 80,
       "stock": 2,
       "images": [
         " https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
@@ -51,6 +53,7 @@
       "ratingAverage": 4.69,
       "totalCount": 101,
       "stock": 94,
+      "shippingCost": 80,
       "brand": "Apple",
       "category": "smartphones",
       "thumbnail": "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg",
@@ -71,6 +74,7 @@
       "rating": 4.44,
       "stock": 34,
       "brand": "Apple",
+      "shippingCost": 80,
       "category": "smartphones",
       "thumbnail": "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg",
       "images": [
@@ -103,6 +107,7 @@
       "discountPercentage": 17.91,
       "rating": 4.3,
       "stock": 123,
+      "shippingCost": 80,
       "brand": "OPPO",
       "category": "smartphones",
       "thumbnail": "https://cdn.dummyjson.com/product-images/4/thumbnail.jpg",
@@ -701,32 +706,22 @@
       "password": "Abarai@123",
       "addresses": [
         {
-          "name": "shivam",
-          "email": "avinashmk42@gmail.com",
-          "phone": "8299177208",
-          "country": "India",
-          "street": "dihwa bhadi",
-          "city": "Shahganj",
-          "state": "uttar pradesh",
-          "pinCode": "223101"
-        },
-        {
-          "name": "mohan lal chaura",
-          "email": "mohan@gmail.com",
-          "phone": "8604288313",
-          "country": "India",
-          "street": "azamgarh road",
-          "city": "shahganj",
-          "state": "up",
-          "pinCode": "223101"
-        },
-        {
-          "name": "arti chaurasiya",
+          "name": "Arti chaurasiya",
           "email": "arti@gmail.com",
           "phone": "9044207635",
           "country": "India",
-          "street": "bhedaura maharajganj",
+          "street": "bhedaura maharajganj near bank of baroda ",
           "city": "Azamgarh",
+          "state": "uttar pradesh",
+          "pinCode": "2231703"
+        },
+        {
+          "name": "Shivam chaurasiya",
+          "email": "shivamshg1999@gmail.com",
+          "phone": "8957413082",
+          "country": "India",
+          "street": "dihwa bhadi,shahganj",
+          "city": "Shahganj",
           "state": "uttar pradesh",
           "pinCode": "223101"
         }
@@ -762,7 +757,32 @@
       "addresses": []
     }
   ],
-  "cart": [],
+  "cart": [
+    {
+      "id": "ddff",
+      "title": "Medium Stuff Satchel",
+      "href": "#",
+      "thumbnail": "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
+      "imageAlt": "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
+      "price": 550,
+      "discountPrice": 450,
+      "color": "Black",
+      "totalCount": 17,
+      "category": "tShirt",
+      "brand": "addidas",
+      "ratingAverage": 3.7,
+      "shippingCost": 80,
+      "stock": 2,
+      "images": [
+        " https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
+        " https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
+        " https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
+        " https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg"
+      ],
+      "quantity": 1,
+      "users": "3263"
+    }
+  ],
   "orders": [
     {
       "id": "7f09",

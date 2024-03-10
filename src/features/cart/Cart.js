@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteItemFromCartAsync, selectItems, updateCartAsync } from "./cartSlice";
 import { Dialog, Transition } from "@headlessui/react";
@@ -26,6 +26,9 @@ export default function Cart() {
     dispatch(deleteItemFromCartAsync(id))
   }
 
+  useEffect(() => {
+    // Do something when items array changes
+  }, [items]);
 
   return (
     <>

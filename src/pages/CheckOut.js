@@ -9,7 +9,6 @@ import {
 import { Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
-  selectLoggedInUser,
   updateUserAsync,
 } from "../features/auth/authSlice";
 import {
@@ -17,11 +16,12 @@ import {
   selectCurrentOrder,
 } from "../features/order/orderSlice";
 import { toast } from "react-toastify";
+import { selectUserInfo } from "../features/user/userSlice";
 
 const CheckOut = () => {
   const [open, setOpen] = useState(true);
 
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectUserInfo);
   const items = useSelector(selectItems);
   const currentOrder = useSelector(selectCurrentOrder);
   const dispatch = useDispatch();
@@ -34,7 +34,6 @@ const CheckOut = () => {
   const [paymentMethod, setPaymentMethod] = useState("card");
 
   const handleAddress = (e) => {
-    console.log(user.addresses[e.target.value]);
     setSeletedAddress(user.addresses[e.target.value]);
   };
   const handlePayment = (e) => {
@@ -50,7 +49,7 @@ const CheckOut = () => {
         paymentMethod,
         selectedAddress,
         status : "pending", //need to be changed as delivered,received
-        shippingCost
+ 
       };
       dispatch(createOrderAsync(order));
       //need to redirect from here to new order succcess page
@@ -58,10 +57,10 @@ const CheckOut = () => {
       toast.error("Enter Address and Payment Method");
     }
   };
-  const shippingCost = 80;
+  
   const totalAmount = items.reduce((amount, item) => {
     const price = item.discountPrice ? item.discountPrice : item.price;
-    return price * item.quantity + amount + shippingCost;
+    return price * item.quantity + item.shippingCost + amount;
   }, 0);
 
   const handleQuantity = (e, item) => {
@@ -69,6 +68,7 @@ const CheckOut = () => {
   };
 
   const handleRemove = (e, id) => {
+  
     dispatch(deleteItemFromCartAsync(id));
   };
 
@@ -464,7 +464,7 @@ const CheckOut = () => {
               <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
               <div className="flex justify-between text-base font-medium text-gray-900">
                   <p>Shipping Cost</p>
-                  <p>Rs. {shippingCost}</p>
+                  <p>Rs. {items[0].shippingCost}</p>
                 </div>
                 <div className="flex justify-between text-base font-medium text-gray-900">
                   <p>Subtotal</p>
