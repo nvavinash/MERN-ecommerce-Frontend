@@ -15,7 +15,7 @@ export default function UserOrders() {
 
   return (
     <>
-      {orders.map((order) => (
+      {orders && orders.map((order) => (
         <div>
           <div className="mx-auto mt-8 bg-white max-w-7xl py-4 px-4 sm:px-6 lg-px-8">
             <h1 className="text-3xl my-5 font-bold tracking-tight text-gray-900">

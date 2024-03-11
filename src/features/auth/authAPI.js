@@ -22,7 +22,7 @@ export function checkUser(loginInfo){
     const response = await fetch('http://localhost:8080/users?email=' +email)
     const data = await response.json();
     if(data.length){
-      if(password===data[0].password){
+      if(password === data[0].password){
         resolve({data:data[0]})
       }else{
         reject({message:"Wrong Credentials"})
@@ -32,6 +32,12 @@ export function checkUser(loginInfo){
       reject({message: "User not found"})
     }
     
+  })
+}
+
+export function signOut(userId){
+  return new Promise(async(resolve)=>{
+    resolve({data : "success"})
   })
 }
 
