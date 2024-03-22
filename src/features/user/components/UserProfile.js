@@ -57,10 +57,10 @@ export default function UserProfile() {
             {" "}
             Name : {user.name ? user.name : " Guest "}
           </h1>
-          {/* <h3 className="text-xl my-5 font-bold tracking-tight text-gray-900">
+          {user.role === "admin" && <h3 className="text-xl my-5 font-bold tracking-tight text-gray-900">
               {" "}
-             Mobile No.
-            </h3> */}
+             Role :{user.role}
+            </h3>}
           <h3 className="text-xl my-5 font-bold tracking-tight text-gray-900">
             {" "}
             Email Address : {user.email ? user.email : " dem0@gmail.com "}

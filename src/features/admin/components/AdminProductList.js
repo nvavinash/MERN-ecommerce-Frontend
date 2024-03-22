@@ -7,8 +7,8 @@ import {
   selectBrands,
   selectCategories,
   fetchBrandsAsync,
-  fetchCategoriesAsync
-} from "../productSlice";
+  fetchCategoriesAsync,
+} from "../../product/productSlice";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { StarIcon } from "@heroicons/react/20/solid";
@@ -30,13 +30,11 @@ const sortOptions = [
   { name: "Price: High to Low", sort: "-price", order: "desc", current: false },
 ];
 
-
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function ProductList() {
+export default function AdminProductList() {
   const dispatch = useDispatch();
   const products = useSelector(selectAllProducts);
   const totalItems = useSelector(selectTotalItems);
@@ -54,7 +52,7 @@ export default function ProductList() {
       name: "Brands",
       options: brands,
     },
-  
+
     // {
     //   id: "size",
     //   name: "Size",
@@ -111,10 +109,10 @@ export default function ProductList() {
     setPage(1);
   }, [totalItems, sort]);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(fetchBrandsAsync());
     dispatch(fetchCategoriesAsync());
-  },[dispatch])
+  }, [dispatch]);
 
   return (
     <div>
@@ -125,7 +123,7 @@ export default function ProductList() {
             handleFilter={handleFilter}
             mobileFiltersOpen={mobileFiltersOpen}
             setMobileFiltersOpen={setMobileFiltersOpen}
-            filters ={filters}
+            filters={filters}
           />
 
           <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -204,13 +202,21 @@ export default function ProductList() {
               </h2>
 
               <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-                <DesktopFilter handleFilter={handleFilter} filters={filters}/>
+                <DesktopFilter handleFilter={handleFilter} filters={filters} />
                 {/*=====================================================================================Web page Filters */}
 
                 {/* Product grid --------------------------------------------------*/}
                 <div className="lg:col-span-3">
                   {" "}
                   {/* //Product page Mobile */}
+                  <Link
+                    className="flex justify-center items-center text-center "
+                    to="/admin/product-form"
+                  >
+                    <button className="flex z-40 justify-center items-center text-center rounded-md bg-gray-700 mt-2 px-3 py-2 text-sm font-medium text-white ring-1 ring-inset ring-gray-500/10">
+                      + Add New Product Here
+                    </button>
+                  </Link>
                   <ProductGrid data={products} />
                 </div>
               </div>
@@ -354,7 +360,7 @@ function MobileFilter({
   );
 }
 
-function DesktopFilter({ handleFilter, filters}) {
+function DesktopFilter({ handleFilter, filters }) {
   return (
     <>
       <form className="hidden lg:block">
@@ -415,18 +421,22 @@ function DesktopFilter({ handleFilter, filters}) {
 }
 
 function Pagination({ handlePage, page, setPage, totalItems }) {
-  const totalPages = Math.ceil(totalItems/ITEM_PER_PAGE);
+  const totalPages = Math.ceil(totalItems / ITEM_PER_PAGE);
   return (
     <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
       <div className="flex flex-1 justify-between sm:hidden">
         <div
-          onClick={(e)=>{handlePage(page > 1 ? page -1 :page)}}
+          onClick={(e) => {
+            handlePage(page > 1 ? page - 1 : page);
+          }}
           className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
         >
           Previous
         </div>
         <div
-          onClick={(e)=>{handlePage(page<totalPages?page+1:page)}}
+          onClick={(e) => {
+            handlePage(page < totalPages ? page + 1 : page);
+          }}
           className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
         >
           Next
@@ -454,32 +464,34 @@ function Pagination({ handlePage, page, setPage, totalItems }) {
             aria-label="Pagination"
           >
             <div
-             onClick={(e)=>{handlePage(page > 1 ? page -1 :page)}}
+              onClick={(e) => {
+                handlePage(page > 1 ? page - 1 : page);
+              }}
               className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
             >
               <span className="sr-only">Previous</span>
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
             </div>
             {/* Current: "z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", Default: "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0" */}
-            {Array.from({ length: totalPages }).map(
-              (el, index) => (
-                <div
-                  key={index}
-                  aria-current="page"
-                  className={`"relative cursor-pointer z-10 inline-flex items-center ${
-                    index + 1 === page
-                      ? "bg-indigo-600 text-white"
-                      : "text-gray-400"
-                  } px-4 py-2 text-sm font-semibold focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"`}
-                  onClick={(e) => handlePage(index + 1)}
-                >
-                  {index + 1}
-                </div>
-              )
-            )}
+            {Array.from({ length: totalPages }).map((el, index) => (
+              <div
+                key={index}
+                aria-current="page"
+                className={`"relative cursor-pointer z-10 inline-flex items-center ${
+                  index + 1 === page
+                    ? "bg-indigo-600 text-white"
+                    : "text-gray-400"
+                } px-4 py-2 text-sm font-semibold focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"`}
+                onClick={(e) => handlePage(index + 1)}
+              >
+                {index + 1}
+              </div>
+            ))}
 
             <div
-              onClick={(e)=>{handlePage(page < totalPages ?page+1: page)}}
+              onClick={(e) => {
+                handlePage(page < totalPages ? page + 1 : page);
+              }}
               className="relative  inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
             >
               <span className="sr-only">Next</span>
@@ -495,78 +507,91 @@ function Pagination({ handlePage, page, setPage, totalItems }) {
 function ProductGrid({ data }) {
   return (
     <div className="bg-white">
-      <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
-        <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+      <div className="mx-auto   max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
+        <div className="mt-6  grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {data.map((product) => (
-            <Link to= {`/productDetailsPage/${product.id}`} key={product.id}>
-              <div className="group relative">
-                <span className="inline-flex z-40 items-center rounded-md bg-red-700  px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-gray-500/10">
-                  {product.discountPrice
-                    ? `Discount ${Math.round(
-                        (1 - product.discountPrice / product.price) * 100
-                      )}%`
-                    : "Fresh Arrival"}
-                </span>
-                <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-700 lg:aspect-none group-hover:opacity-75 lg:h-60">
-                  <img
-                    src={product.thumbnail}
-                    alt={product.title}
-                    className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                  />
-                </div>
-                <div className="mt-4 flex justify-between">
-                  <div>
-                    <h2 className="text-sm text-gray-700">
-                      <div href={product.thumbnail}>
-                        <span aria-hidden="true" className="absolute inset-0" />
-                        {product.title}
-                      </div>
-                    </h2>
-                    <div className="mt-1">
-                      <h3 className="sr-only">Reviews</h3>
-                      <div className="flex items-center">
-                        <div className="flex items-center">
-                          {[0, 1, 2, 3, 4].map((rating) => (
-                            <StarIcon
-                              key={rating}
-                              className={classNames(
-                                product.ratingAverage > rating
-                                  ? "text-gray-900"
-                                  : "text-gray-200",
-                                "h-2 w-3 flex-shrink-0"
-                              )}
-                              aria-hidden="true"
-                            />
-                          ))}
-                          <p className="ml-2 text-xs font-medium text-indigo-600 hover:text-indigo-500">
-                            {product.totalCount}
-                            {/* reviews */}
-                          </p>
-                        </div>
+            <div>
+              <Link to={`/productDetailsPage/${product.id}`} key={product.id}>
+                <div className="group relative">
+                {!product.deleted ?<span className="inline-flex z-40 items-center rounded-md bg-red-700  px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-gray-500/10">
+                    {product.discountPrice
+                      ? `Discount ${Math.round(
+                          (1 - product.discountPrice / product.price) * 100
+                        )}%`
+                      : "Fresh Arrival"}
+                  </span>:
+                  <span className="inline-flex z-40 items-center rounded-md bg-yellow-500  px-2 py-1 text-xs font-medium text-black ring-1 ring-inset ring-gray-500/10">
+                   xx-Product Deleted-xx
+                  </span>}
 
-                        {/* <p className="sr-only">{product.ratingAverage} out of 5 stars</p> */}
+                  <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-700 lg:aspect-none group-hover:opacity-75 lg:h-60">
+                    <img
+                      src={product.thumbnail}
+                      alt={product.title}
+                      className="h-full w-full object-cover object-center bg-gray-700 lg:h-full lg:w-full"
+                    />
+                  </div>
+                  <div className="mt-4 flex justify-between">
+                    <div>
+                      <h2 className="text-sm text-gray-700">
+                        <div href={product.thumbnail}>
+                          <span
+                            aria-hidden="true"
+                            className="absolute inset-0"
+                          />
+                          {product.title}
+                        </div>
+                      </h2>
+                      <div className="mt-1">
+                        <h3 className="sr-only">Reviews</h3>
+                        <div className="flex items-center">
+                          <div className="flex items-center">
+                            {[0, 1, 2, 3, 4].map((rating) => (
+                              <StarIcon
+                                key={rating}
+                                className={classNames(
+                                  product.ratingAverage > rating
+                                    ? "text-gray-900"
+                                    : "text-gray-200",
+                                  "h-2 w-3 flex-shrink-0"
+                                )}
+                                aria-hidden="true"
+                              />
+                            ))}
+                            <p className="ml-2 text-xs font-medium text-indigo-600 hover:text-indigo-500">
+                              {product.totalCount}
+                              {/* reviews */}
+                            </p>
+                          </div>
+
+                          {/* <p className="sr-only">{product.ratingAverage} out of 5 stars</p> */}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="text-base">
-                    <p className="text-sm font-medium text-gray-900">
-                      {product.discountPrice
-                        ? `Rs. ${product.discountPrice}`
-                        : ""}
-                    </p>
-                    <p
-                      className={
-                        product.discountPrice
-                          ? "text-sm font-medium text-gray-400 line-through"
-                          : "text-sm font-medium text-gray-900"
-                      }
-                    >
-                      Rs. {product.price}
-                    </p>
+                    <div className="text-base">
+                      <p className="text-sm font-medium text-gray-900">
+                        {product.discountPrice
+                          ? `Rs. ${product.discountPrice}`
+                          : ""}
+                      </p>
+                      <p
+                        className={
+                          product.discountPrice
+                            ? "text-sm font-medium text-gray-400 line-through"
+                            : "text-sm font-medium text-gray-900"
+                        }
+                      >
+                        Rs. {product.price}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+              <Link className="flex z-40 justify-center items-center text-center rounded-md bg-gray-700 mt-2 px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-gray-500/10"
+              to = {`/admin/product-form/edit/${product.id}`}>
+                Edit
+              </Link>
+            </div>
           ))}
         </div>
       </div>

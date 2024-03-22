@@ -19,7 +19,7 @@ export const createUserAsync = createAsyncThunk(
 
 export const checkUserAsync = createAsyncThunk(
   'user/checkuser',
-  async (loginInfo) =>{
+  async(loginInfo) =>{
     const response = await checkUser(loginInfo);
     return response.data;
   }
@@ -42,7 +42,7 @@ export const signOutAsync = createAsyncThunk(
 )
 
 
-export const counterSlice = createSlice({
+export const authSlice = createSlice({
   name: 'user',
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
@@ -92,8 +92,8 @@ export const counterSlice = createSlice({
   },
 });
 
-export const { increment} = counterSlice.actions;
+export const { increment} = authSlice.actions;
 export const selectLoggedInUser = (state) => state.auth.loggedInUser; 
 export const selectError = (state) => state.auth.error;
 
-export default counterSlice.reducer;
+export default authSlice.reducer;

@@ -23,7 +23,7 @@ import { useState, useEffect } from 'react'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { RadioGroup } from '@headlessui/react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchProductByIdAsync, selectedProductById } from '../productSlice'
+import { fetchProductByIdAsync, selectedProductById } from '../../product/productSlice'
 import { selectLoggedInUser } from '../../auth/authSlice'
 import { useParams } from 'react-router-dom'
 import { addToCartAsync } from '../../cart/cartSlice'
@@ -56,7 +56,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function ProductDetails() {
+export default function AdminProductDetails() {
   const [selectedColor, setSelectedColor] = useState(colors[0])
   const [selectedSize, setSelectedSize] = useState(sizes[2])
   const product = useSelector(selectedProductById)
@@ -113,7 +113,7 @@ export default function ProductDetails() {
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
           <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
             <img
-              src={product.thumbnail}
+              src={product.images[0]}
               alt={product.title}
               className="h-full w-full object-cover object-center"
             />
@@ -121,14 +121,14 @@ export default function ProductDetails() {
           <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
             <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
               <img
-                src={product.images[0]}
+                src={product.images[1]}
                 alt={product.title}
                 className="h-full w-full object-cover object-center"
               />
             </div>
             <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
               <img
-                src={product.images[1]}
+                src={product.images[2]}
                 alt={product.title}
                 className="h-full w-full object-cover object-center"
               />
@@ -136,7 +136,7 @@ export default function ProductDetails() {
           </div>
           <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
             <img
-              src={product.images[2]}
+              src={product.images[3]}
               alt={product.title}
               className="h-full w-full object-cover object-center"
             />
@@ -152,15 +152,7 @@ export default function ProductDetails() {
           {/* Options */}
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
-            <span className="text-1xl tracking-tight text-gray-500 mr-2 line-through">Rs. {product.price}</span><span className="inline-flex z-40 items-center rounded-md bg-red-700  px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-gray-500/10">
-                  {product.discountPrice
-                    ? `Discount ${Math.round(
-                        (1 - product.discountPrice / product.price) * 100
-                      )}%`
-                    : "Fresh Arrival"}
-                </span>
-            <p className="text-2xl tracking-tight text-gray-900">Rs. {product.discountPrice}</p>
-
+            <p className="text-3xl tracking-tight text-gray-900">{product.price}</p>
 
             {/* Reviews */}
             <div className="mt-6">

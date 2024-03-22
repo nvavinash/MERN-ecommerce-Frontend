@@ -75,13 +75,13 @@ export default function Cart() {
                         </select></div>
 
                       <div className="flex">
-                        <button
+                     {item.id && <button
                           onClick={(e)=>handleRemove(e,item.id)}
                           type="button"
                           className="font-medium text-indigo-600 hover:text-indigo-500"
                         >
                           Remove
-                        </button>
+                        </button>}
                       </div>
                     </div>
                   </div>

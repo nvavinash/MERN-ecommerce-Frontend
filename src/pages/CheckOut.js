@@ -464,7 +464,7 @@ const CheckOut = () => {
               <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
               <div className="flex justify-between text-base font-medium text-gray-900">
                   <p>Shipping Cost</p>
-                  <p>Rs. {items[0].shippingCost}</p>
+                  <p>Rs. {items[0]?.shippingCost}</p>
                 </div>
                 <div className="flex justify-between text-base font-medium text-gray-900">
                   <p>Subtotal</p>
