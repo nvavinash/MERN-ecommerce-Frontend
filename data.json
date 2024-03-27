@@ -788,24 +788,29 @@
   ],
   "cart": [
     {
-      "id": "65b5",
-      "title": "iPhone X",
-      "description": "iPhone X",
-      "price": 15000,
-      "discountPrice": 12000,
-      "rating": 0,
-      "stock": 34,
-      "brand": "Apple",
+      "id": "db6a",
+      "title": "Basic Tee",
+      "href": "#",
+      "thumbnail": "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
+      "imageAlt": "Front of men's Basic Tee in black.",
+      "price": 900,
+      "discountPrice": 500,
+      "color": "Black",
+      "category": "tShirt",
+      "brand": "puma",
+      "totalCount": 117,
+      "ratingAverage": 4,
       "shippingCost": 80,
-      "category": "smartphones",
-      "thumbnail": "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg",
+      "stock": 32,
       "images": [
-        "https://cdn.dummyjson.com/product-images/2/1.jpg",
-        "https://cdn.dummyjson.com/product-images/2/2.jpg",
-        "https://cdn.dummyjson.com/product-images/2/3.jpg"
+        "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
+        "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
+        "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg"
       ],
+      "description": "Basic Tee",
       "categories": "",
-      "quantity": 1,
+      "rating": 0,
+      "quantity": 3,
       "users": "35c0"
     }
   ],
@@ -825,6 +830,7 @@
           "totalCount": 17,
           "category": "tShirt",
           "brand": "addidas",
+          "shippingCost": 80,
           "ratingAverage": 3.7,
           "stock": 2,
           "images": [
@@ -887,8 +893,80 @@
         "state": "up",
         "pinCode": "223101"
       },
-      "status": "pending",
-      "shippingCost": 80
+      "status": "delivered"
+    },
+    {
+      "id": "2860",
+      "items": [
+        {
+          "id": "30cc",
+          "title": "Basic Tee",
+          "href": "#",
+          "thumbnail": "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
+          "imageAlt": "Front of men's Basic Tee in black.",
+          "price": 900,
+          "discountPrice": 500,
+          "color": "Black",
+          "category": "tShirt",
+          "brand": "puma",
+          "totalCount": 117,
+          "ratingAverage": 4,
+          "shippingCost": 80,
+          "stock": 32,
+          "images": [
+            "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
+            "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
+            "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg"
+          ],
+          "description": "Basic Tee",
+          "categories": "",
+          "rating": 0,
+          "quantity": 1,
+          "users": "3263"
+        }
+      ],
+      "totalAmount": 580,
+      "totalItems": 1,
+      "user": {
+        "id": "3263",
+        "email": "avinashmk42@gmail.com",
+        "password": "Abarai@123",
+        "role": "user",
+        "addresses": [
+          {
+            "name": "Arti chaurasiya",
+            "email": "arti@gmail.com",
+            "phone": "9044207635",
+            "country": "India",
+            "street": "bhedaura maharajganj near bank of baroda ",
+            "city": "Azamgarh",
+            "state": "uttar pradesh",
+            "pinCode": "2231703"
+          },
+          {
+            "name": "Shivam chaurasiya",
+            "email": "shivamshg1999@gmail.com",
+            "phone": "8957413082",
+            "country": "India",
+            "street": "dihwa bhadi,shahganj",
+            "city": "Shahganj",
+            "state": "uttar pradesh",
+            "pinCode": "223101"
+          }
+        ]
+      },
+      "paymentMethod": "card",
+      "selectedAddress": {
+        "name": "Shivam chaurasiya",
+        "email": "shivamshg1999@gmail.com",
+        "phone": "8957413082",
+        "country": "India",
+        "street": "dihwa bhadi,shahganj",
+        "city": "Shahganj",
+        "state": "uttar pradesh",
+        "pinCode": "223101"
+      },
+      "status": "dispatched"
     }
   ]
 }

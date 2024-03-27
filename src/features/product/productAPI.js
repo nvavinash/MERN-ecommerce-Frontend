@@ -13,6 +13,7 @@ export function fetchProductsByFilter({filter,sort,pagination}) {
   //filter = {"category" : ["smartphone","laptop"]}
   //sort = {_sort:"price/-price"}
   //pagination = {_page:1,_per_page:10}
+  //TODO: server will filter deleted product is case of not admin
 
   let queryString = '';
   for(let key in filter){
@@ -37,7 +38,6 @@ export function fetchProductsByFilter({filter,sort,pagination}) {
     const products = data.data;
     const totalItems = data.items;
     // const totalItems = await response.headers.get('X-Total-Count')
-    // console.log(`this is totalItem ${totalItems}`)
     resolve({data: {products:products, totalItems:totalItems}});
   }
     
