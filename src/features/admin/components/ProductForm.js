@@ -13,6 +13,8 @@ import {
 import { set, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useState } from "react";
+import Modal from "../../common/Modal";
 
 const ProductForm = () => {
   const dispatch = useDispatch();
@@ -20,6 +22,7 @@ const ProductForm = () => {
   const categories = useSelector(selectCategories);
   const params = useParams();
   const selectedProduct = useSelector(selectedProductById);
+  const [openModal,setOpenModal] = useState(null)
   const {
     register,
     handleSubmit,
@@ -27,6 +30,7 @@ const ProductForm = () => {
     reset,
     formState: { errors },
   } = useForm();
+
   const handleDelete =()=>{
     const product = {...selectedProduct}
     product.deleted = true
@@ -66,13 +70,13 @@ const ProductForm = () => {
           const product = { ...data };
           product.images = [product.image1, product.image2, product.image3];
           product.shippingCost = +product.shippingCost;
-          product.price = +product.priced;
+          product.price = +product.price;
           product.discountPrice = +product.discountPrice;
           product.stock = +product.stock;
           delete product.image1;
           delete product.image2;
           delete product.image3;
-
+          product.deleted = false;
           console.log(product);
           if (params.id) {
             product.id = params.id;
@@ -99,7 +103,7 @@ const ProductForm = () => {
                   htmlFor="title"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Product Name
+                  Product Name {selectedProduct.deleted && <p className ="text-red-500">This Product is Already Deleted</p>}
                 </label>
                 <div className="mt-2">
                   <div className="flex rounded-md shadow-sm ring-1 bg-white ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
@@ -343,7 +347,7 @@ const ProductForm = () => {
                   Category
                 </label>
                 <div className="mt-1">
-                  <select {...register("categories")}>
+                  <select {...register("category")}>
                     <option value="">Choose Category</option>
                     {categories &&
                       categories.map((category) => (
@@ -439,6 +443,17 @@ const ProductForm = () => {
             </div>
           </div>
         </div>
+      
+
+                        <Modal
+                        title ={`Delete ${selectedProduct.title}`}
+                        message ={`Are You Sure delete this Product`}
+                        dangerOption="Delete"
+                        cancelOption="Cancel"
+                        dangerAction={handleDelete}
+                        cancelAction={()=> setOpenModal(null)}
+                        showModal={openModal}
+                      ></Modal>
 
         <div className="mt-6 flex items-center justify-end gap-x-6">
           <button
@@ -447,13 +462,13 @@ const ProductForm = () => {
           >
             Cancel
           </button>
-         {selectedProduct && <button
-            onClick={handleDelete}
+         {selectedProduct && !selectedProduct.deleted && (<button
+            onClick={(e) => {e.preventDefault(); setOpenModal(true)}}
             type="submit"
             className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Delete
-          </button>}
+          </button>)}
           <button
             type="submit"
             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"

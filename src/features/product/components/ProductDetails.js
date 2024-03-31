@@ -26,7 +26,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchProductByIdAsync, selectedProductById } from '../productSlice'
 import { selectLoggedInUser } from '../../auth/authSlice'
 import { useParams } from 'react-router-dom'
-import { addToCartAsync } from '../../cart/cartSlice'
+import { addToCartAsync, selectItems } from '../../cart/cartSlice'
+import { toast } from 'react-toastify'
+import { useAlert } from "react-alert";
 
 const colors = [
   { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
@@ -61,15 +63,23 @@ export default function ProductDetails() {
   const [selectedSize, setSelectedSize] = useState(sizes[2])
   const product = useSelector(selectedProductById)
   const users = useSelector(selectLoggedInUser)
+  const items = useSelector(selectItems)
+  const alert = useAlert();
 
   const dispatch = useDispatch();
   const params = useParams();
   const handleCart = (e) => {
     e.preventDefault();
-    const newItem = {...product,quantity:1, users:users.id}
+    if(items.findIndex(item => item.productId === product.id)<0){
    
-    delete newItem[`id`]
-    dispatch(addToCartAsync(newItem));
+      const newItem = {...product,productId: product.id, quantity:1, users:users.id}
+      delete newItem[`id`]
+      dispatch(addToCartAsync(newItem));
+      toast.success("Product Added to Cart")
+    }else{
+      toast.error("Product Already Added")
+    }
+   
     }
     
 

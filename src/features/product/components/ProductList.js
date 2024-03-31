@@ -8,7 +8,8 @@ import {
   selectBrands,
   selectCategories,
   fetchBrandsAsync,
-  fetchCategoriesAsync
+  fetchCategoriesAsync,
+  selectProcutcListStatus
 } from "../productSlice";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -24,6 +25,7 @@ import {
 } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 import { ITEM_PER_PAGE } from "../../../app/constants";
+import Loader from "../../common/Loader";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -43,6 +45,7 @@ export default function ProductList() {
   const totalItems = useSelector(selectTotalItems);
   const brands = useSelector(selectBrands);
   const categories = useSelector(selectCategories);
+  const status = useSelector(selectProcutcListStatus);
 
   const filters = [
     {
@@ -120,6 +123,7 @@ export default function ProductList() {
   return (
     <div>
       <div className="bg-white">
+    
         <div>
           {/* Mobile filter dialog */}
           <MobileFilter
@@ -212,7 +216,7 @@ export default function ProductList() {
                 <div className="lg:col-span-3">
                   {" "}
                   {/* //Product page Mobile */}
-                  <ProductGrid data={products} />
+                  {status === "loading" ? <Loader/> :<ProductGrid data={products} />}
                 </div>
               </div>
             </section>
@@ -421,15 +425,17 @@ function ProductGrid({ data }) {
       <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
         <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {data.map((product) => (
-            <Link to= {`/productDetailsPage/${product.id}`} key={product.id}>
-              <div className="group relative">
-                <span className="inline-flex z-40 items-center rounded-md bg-red-700  px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-gray-500/10">
+            <Link to= {!product.deleted ? `/productDetailsPage/${product.id}`:"/"} key={product.id}>
+           <div className="group relative">
+                {!product.deleted ? <span className="inline-flex z-40 items-center rounded-md bg-red-700  px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-gray-500/10">
                   {product.discountPrice
                     ? `Discount ${Math.round(
                         (1 - product.discountPrice / product.price) * 100
                       )}%`
                     : "Fresh Arrival"}
-                </span>
+                </span>:<span className="inline-flex z-40 items-center rounded-md bg-gray-700  px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-gray-500/10">
+                Out of Stock
+                </span>}
                 <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-700 lg:aspect-none group-hover:opacity-75 lg:h-60">
                   <img
                     src={product.thumbnail}

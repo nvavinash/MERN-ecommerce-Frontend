@@ -6,7 +6,7 @@
       "href": "#",
       "thumbnail": "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
       "imageAlt": "Front of men's Basic Tee in black.",
-      "price": 900,
+      "price": 600,
       "discountPrice": 500,
       "color": "Black",
       "category": "tShirt",
@@ -30,11 +30,11 @@
       "href": "#",
       "thumbnail": "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
       "imageAlt": "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
-      "price": 12000,
-      "discountPrice": 10000,
+      "price": 1500,
+      "discountPrice": 999,
       "color": "Black",
       "totalCount": 17,
-      "category": "tShirt",
+      "category": "bag",
       "brand": "addidas",
       "ratingAverage": 3.7,
       "shippingCost": 80,
@@ -179,7 +179,7 @@
     {
       "id": "8",
       "title": "Microsoft Surface Laptop 4",
-      "description": "Style and speed. Stand out on HD video calls backed by Studio Mics. Capture ideas on the vibrant touchscreen.",
+      "description": "Microsoft Surface Laptop 4",
       "price": 1499,
       "discountPercentage": 10.23,
       "rating": 4.43,
@@ -190,20 +190,21 @@
       "images": [
         "https://cdn.dummyjson.com/product-images/8/1.jpg",
         "https://cdn.dummyjson.com/product-images/8/2.jpg",
-        "https://cdn.dummyjson.com/product-images/8/3.jpg",
-        "https://cdn.dummyjson.com/product-images/8/4.jpg",
-        "https://cdn.dummyjson.com/product-images/8/thumbnail.jpg"
-      ]
+        "https://cdn.dummyjson.com/product-images/8/3.jpg"
+      ],
+      "deleted": true,
+      "discountPrice": 1000,
+      "shippingCost": 80
     },
     {
       "id": "9",
       "title": "Infinix INBOOK",
       "description": "Infinix INBOOK",
-      "price": null,
+      "price": 25000,
       "discountPercentage": 11.83,
       "rating": 4.54,
-      "stock": 96,
-      "brand": "Infinix",
+      "stock": 10,
+      "brand": "",
       "category": "laptops",
       "thumbnail": "https://cdn.dummyjson.com/product-images/9/thumbnail.jpg",
       "images": [
@@ -211,8 +212,8 @@
         "https://cdn.dummyjson.com/product-images/9/2.png",
         "https://cdn.dummyjson.com/product-images/9/3.png"
       ],
-      "deleted": true,
-      "discountPrice": 10,
+      "deleted": false,
+      "discountPrice": 19999,
       "shippingCost": 80,
       "categories": ""
     },
@@ -812,6 +813,33 @@
       "rating": 0,
       "quantity": 3,
       "users": "35c0"
+    },
+    {
+      "id": "4cb4",
+      "title": "Basic Tee",
+      "href": "#",
+      "thumbnail": "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
+      "imageAlt": "Front of men's Basic Tee in black.",
+      "price": 900,
+      "discountPrice": 500,
+      "color": "Black",
+      "category": "tShirt",
+      "brand": "puma",
+      "totalCount": 117,
+      "ratingAverage": 4,
+      "shippingCost": 80,
+      "stock": 32,
+      "images": [
+        "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
+        "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
+        "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg"
+      ],
+      "description": "Basic Tee",
+      "categories": "",
+      "rating": 0,
+      "productId": "199",
+      "quantity": 1,
+      "users": "3263"
     }
   ],
   "orders": [

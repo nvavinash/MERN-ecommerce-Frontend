@@ -1,0 +1,40 @@
+/* .loader-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  } */
+  .loader-item {
+    background-color: #dbdbdb; /* Light gray background color */
+    animation: loading 2s infinite alternate;
+  }
+  
+  @keyframes loading {
+    0% {
+      opacity: 0.15;
+    }
+    10%{
+      opacity: 0.25;
+    }
+    20%{
+      opacity: 0.35;
+    }
+    35%{
+      opacity: 0.5;
+    }
+    45%{
+      opacity: o.75;
+    }
+    55%{
+      opacity: 1;
+    }
+    70%{
+      opacity: o.75;
+    }
+    85%{
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { selectLoggedInUser } from '../features/auth/authSlice';
 import { resetCartAsync } from '../features/cart/cartSlice';
+import Footer from '../features/common/Footer';
 import {resetOrder} from '../features/order/orderSlice';
 
 
@@ -41,6 +42,7 @@ const OrderSuccessPage = () => {
       </div>
     </div>
   </main>
+  <Footer/>
   </>
   )
 }

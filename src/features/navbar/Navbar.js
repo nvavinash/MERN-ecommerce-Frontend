@@ -10,17 +10,10 @@ import { useSelector } from "react-redux";
 import { selectItems } from "../cart/cartSlice";
 import { selectLoggedInUser } from "../auth/authSlice";
 
-const user = {
-  name: "Arti",
-  email: "tom@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
 const navigation = [
   { name: "Dashboard", link: "#",  user: true },
-  { name: "Team", link: "#", user: true },
   { name: "Admin", link: "/admin", admin: true },
-  { name: "Orders", link: "/admin/orders", admin: true },
+  { name: "Customer Orders", link: "/admin/orders", admin: true },
 ];
 const userNavigation = [
   { name: "My Profile", link: "/profile" },
@@ -161,7 +154,7 @@ function Navbar({ children }) {
               <Disclosure.Panel className="md:hidden">
                 <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                   {navigation.map((item) => (
-                    <Link
+                     item[user.role]?<Link
                       key={item.name}
                       as="a"
                       to={item.link}
@@ -174,7 +167,8 @@ function Navbar({ children }) {
                       aria-current={item.current ? "page" : undefined}
                     >
                       {item.name}
-                    </Link>
+                    </Link>:null
+                   
                   ))}
                 </div>
                 <div className="border-t border-gray-700 pb-3 pt-4">

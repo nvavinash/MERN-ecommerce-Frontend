@@ -76,20 +76,24 @@ export const cartSlice = createSlice({
         state.items = action.payload
       })
       .addCase(updateCartAsync.pending,(state)=>{
-        state.status = 'idle';
+        state.status = 'loading';
       })
       .addCase(updateCartAsync.fulfilled,(state,action)=>{
         state.status = 'idle';
         const index = state.items.findIndex(item => item.id === action.payload.id)
         state.items[index] = action.payload;
       })
-      .addCase(deleteItemFromCartAsync.pending,(state,action)=>{
+      .addCase(deleteItemFromCartAsync.pending,(state)=>{
+        state.status = 'loading';
+      })
+      .addCase(deleteItemFromCartAsync.fulfilled,(state,action)=>{
         state.status = "idle";
-        const index = state.items.findIndex(item => item.id === action.payload)
+        console.log("cartSlice",action.payload.id)
+        const index = state.items.findIndex(item => item.id === action.payload.id)
         state.items.splice(index,1);
       })
       .addCase(resetCartAsync.pending,(state)=>{
-        state.status = "idle";
+        state.status = "loading";
       })
       .addCase(resetCartAsync.fulfilled,(state)=>{
         state.status = "idle";
