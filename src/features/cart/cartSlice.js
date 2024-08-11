@@ -51,9 +51,6 @@ export const cartSlice = createSlice({
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
-    increment: (state) => {
-      state.value += 1;
-    },
   },
 
 
@@ -102,8 +99,8 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { increment} = cartSlice.actions;
+// export const { increment} = cartSlice.actions;
 
 export const selectItems = (state) => state.cart.items;
-
+export const selectCartStatus = (state) => state.cart.status;
 export default cartSlice.reducer;

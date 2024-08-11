@@ -1,43 +1,40 @@
-
 // A mock function to mimic making an async request for data
 export function createUser(userData) {
-  return new Promise(async (resolve) =>{
-    const response = await fetch('http://localhost:8080/users',{
-      method:"POST",
+  return new Promise(async (resolve) => {
+    const response = await fetch("http://localhost:8080/auth/signUp", {
+      method: "POST",
       body: JSON.stringify(userData),
-      headers:{'Content-Type': "application/json"}
-    })
+      headers: { "Content-Type": "application/json" },
+    });
     const data = await response.json();
-    resolve({data})
-  }
-    
-  );
+    resolve({ data });
+  });
 }
 
-export function checkUser(loginInfo){
-  return new Promise(async(resolve,reject)=>{
-   
-    const email = loginInfo.email;
-    const password = loginInfo.password;
-    const response = await fetch('http://localhost:8080/users?email=' +email)
-    const data = await response.json();
-    if(data.length){
-      if(password === data[0].password){
-        resolve({data:data[0]})
+export function checkUser(loginInfo) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch("http://localhost:8080/auth/login", {
+        method: "POST",
+        body: JSON.stringify(loginInfo),
+        headers: { "Content-Type": "application/json" },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log({ data });
+        resolve({ data });
       }else{
-        reject({message:"Wrong Credentials"})
+        const error = await response.json();
+        reject(error)
       }
-      
-    }else{
-      reject({message: "User not found"})
+    } catch (error) {
+      reject( error );
     }
-    
-  })
+  });
 }
 
-export function signOut(userId){
-  return new Promise(async(resolve)=>{
-    resolve({data : "success"})
-  })
+export function signOut(userId) {
+  return new Promise(async (resolve) => {
+    resolve({ data: "success" });
+  });
 }
-

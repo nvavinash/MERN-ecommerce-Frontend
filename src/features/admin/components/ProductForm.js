@@ -7,7 +7,7 @@ import {
   fetchProductByIdAsync,
   selectBrands,
   selectCategories,
-  selectedProductById,
+  selectProductById,
   updateProductAsync,
 } from "../../product/productSlice";
 import { set, useForm } from "react-hook-form";
@@ -21,7 +21,7 @@ const ProductForm = () => {
   const brands = useSelector(selectBrands);
   const categories = useSelector(selectCategories);
   const params = useParams();
-  const selectedProduct = useSelector(selectedProductById);
+  const selectedProduct = useSelector(selectProductById);
   const [openModal,setOpenModal] = useState(null)
   const {
     register,
@@ -333,7 +333,7 @@ const ProductForm = () => {
                     <option value="">Choose Brand</option>
                     {brands &&
                       brands.map((brand) => (
-                        <option value={brand.value}>{brand.label}</option>
+                        <option key={brand.value} value={brand.value}>{brand.label}</option>
                       ))}
                   </select>
                 </div>
@@ -351,7 +351,7 @@ const ProductForm = () => {
                     <option value="">Choose Category</option>
                     {categories &&
                       categories.map((category) => (
-                        <option value={category.value}>{category.label}</option>
+                        <option key={category.value} value={category.value}>{category.label}</option>
                       ))}
                   </select>
                 </div>

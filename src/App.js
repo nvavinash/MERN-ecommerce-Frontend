@@ -106,25 +106,32 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/productDetailsPage/:id",
+    path: "/products/:id",
     element: <ProductDetailsPage />,
   },
   {
-    path: "/productDetalsPage/:id",
+    path: "/products/:id",
     element: <AdminProductDetailPage />,
   },
-
-  {
-    path: "/orderSuccess/:id",
-    element: <OrderSuccessPage />,
-  },
+  { path: '/order-success/:id',
+  element: (
+    <Protected>
+      <OrderSuccessPage></OrderSuccessPage>{' '}
+    </Protected>
+  )},
+ 
   {
     path: "/orders",
-    element: <UserOrdersPage />,
+    element:(<Protected>
+     <UserOrdersPage />{''}
+     </Protected>)
+    
   },
   {
     path: "/profile",
-    element: <UserProfilePage />,
+    element:(<Protected>
+      <UserProfilePage></UserProfilePage>{' '}
+    </Protected>),
   },
   {
     path: "/logout",

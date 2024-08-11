@@ -137,19 +137,19 @@ const AdminOrders = () => {
                         </td>
                         <td className="py-3 px-6 text-left md:table-cell">
                           {/* Item details */}
-                          {order.items.map((item) => (
-                            <div className="flex items-center">
+                          {order.items.map((item,index) => (
+                            <div key={index} className="flex items-center">
                               <div className="mr-2">
                                 <img
                                   className="w-10 h-10 rounded-full"
-                                  src={item.thumbnail}
+                                  src={item.product.thumbnail}
                                 />
                               </div>
                               <span>
-                                {item.title} - Total Items:{item.quantity}
+                                {item.product.title} - Total Items:{item.product.quantity}
                                 <div>
-                                  Rs:{item.discountPrice} + Shipping:{" "}
-                                  {item.shippingCost ? item.shippingCost : 0}{" "}
+                                  Rs:{item.product.discountPrice} + Shipping:{" "}
+                                  {item.product.shippingCost ? item.product.shippingCost : 0}{" "}
                                   rs.
                                 </div>
                               </span>

@@ -1,23 +1,23 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, {useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   deleteItemFromCartAsync,
   selectItems,
   updateCartAsync,
 } from "./cartSlice";
-import { Dialog, Transition } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+
 import { Link, Navigate } from "react-router-dom";
 import Modal from "../common/Modal";
 
 export default function Cart() {
-  const items = useSelector(selectItems);
+  
   const dispatch = useDispatch();
+  const items = useSelector(selectItems);
   const [openModal, setOpenModal] = useState(null);
-  const [open, setOpen] = useState(true);
+ 
 
   const totalAmount = items.reduce((amount, item) => {
-    const price = item.discountPrice ? item.discountPrice : item.price;
+    const price = item.product.discountPrice ? item.product.discountPrice : item.product.price;
     return price * item.quantity + amount;
   }, 0);
 
@@ -26,17 +26,16 @@ export default function Cart() {
   }, 0);
 
   const handleQuantity = (e, item) => {
-    dispatch(updateCartAsync({ ...item, quantity: +e.target.value }));
+    dispatch(updateCartAsync({ id:item.id, quantity: +e.target.value }));
   };
 
   const handleRemove = (e, id) => {
     dispatch(deleteItemFromCartAsync(id));
-    console.log("handleRemove", id);
   };
 
-  useEffect(() => {
-    // Do something when items array changes
-  }, [items]);
+  // useEffect(() => {
+  //   // Do something when items array changes
+  // }, [items]);
 
   return (
     <>
@@ -54,8 +53,8 @@ export default function Cart() {
                 <li key={item.id} className="flex py-6">
                   <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                     <img
-                      src={item.thumbnail}
-                      alt={item.imageAlt}
+                      src={item.product.thumbnail}
+                      alt={item.product.imageAlt}
                       className="h-full w-full object-cover object-center"
                     />
                   </div>
@@ -64,23 +63,23 @@ export default function Cart() {
                     <div>
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <h3>
-                          <a href={item.href}>{item.title}</a>
+                          <a href={item.product.id}>{item.product.title}</a>
                         </h3>
-                        {item.discountPrice && (
+                        {item.product.discountPrice && (
                           <p className="line-through text-gray-700">
-                            Rs.{item.price}
+                            Rs.{item.product.price}
                           </p>
                         )}
-                        {item.discountPrice ? (
-                          <p className="ml-2">Rs. {item.discountPrice}</p>
+                        {item.product.discountPrice ? (
+                          <p className="ml-2">Rs. {item.product.discountPrice}</p>
                         ) : (
-                          <p className="ml-2 strike-through">Rs.{item.price}</p>
-                        )}
+                          <p className="ml-2 strike-through">Rs.{item.product.price}</p>
+                        )} 
                       </div>
                       <p className="mt-1 text-sm text-gray-500">
                         {item.brand}
-                        {item.id}
-                      </p>
+                        {item.product.id}
+                      </p> 
                     </div>
                     <div className="flex flex-1 items-end justify-between text-sm">
                       <div className="text-gray-500 mx-50">
@@ -97,12 +96,16 @@ export default function Cart() {
                           <option value="1">1</option>
                           <option value="2">2</option>
                           <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
                         </select>
                       </div>
 
                       <div className="flex">
                         <Modal
-                          title={`Delete ${item.title}`}
+                          title={`Delete ${item.product.title}`}
                           message="Are You Sure..?"
                           dangerOption="Delete"
                           cancelOption="Cancel"
@@ -110,7 +113,7 @@ export default function Cart() {
                           cancelAction = {()=> setOpenModal(-1)}
                           showModal = {openModal === item.id}
                         ></Modal>
-                        {item.id && (
+                        {item.product.id && (
                           <button
                             onClick={(e) =>{setOpenModal(item.id)} }
                             type="button"
@@ -155,7 +158,6 @@ export default function Cart() {
                 <button
                   type="button"
                   className="font-medium text-indigo-600 hover:text-indigo-500"
-                  onClick={() => setOpen(false)}
                 >
                   Continue Shopping
                   <span aria-hidden="true"> &rarr;</span>

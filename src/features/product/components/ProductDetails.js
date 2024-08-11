@@ -23,7 +23,7 @@ import { useState, useEffect } from 'react'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { RadioGroup } from '@headlessui/react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchProductByIdAsync, selectedProductById } from '../productSlice'
+import { fetchProductByIdAsync, selectProductById } from '../productSlice'
 import { selectLoggedInUser } from '../../auth/authSlice'
 import { useParams } from 'react-router-dom'
 import { addToCartAsync, selectItems } from '../../cart/cartSlice'
@@ -61,24 +61,29 @@ function classNames(...classes) {
 export default function ProductDetails() {
   const [selectedColor, setSelectedColor] = useState(colors[0])
   const [selectedSize, setSelectedSize] = useState(sizes[2])
-  const product = useSelector(selectedProductById)
+  const product = useSelector(selectProductById)
   const users = useSelector(selectLoggedInUser)
   const items = useSelector(selectItems)
   const alert = useAlert();
-
   const dispatch = useDispatch();
   const params = useParams();
+
   const handleCart = (e) => {
     e.preventDefault();
-    if(items.findIndex(item => item.productId === product.id)<0){
-   
-      const newItem = {...product,productId: product.id, quantity:1, users:users.id}
-      delete newItem[`id`]
+    if(items && product){
+      if(items.findIndex(item => item.product.id === product.id)<0){
+        // console.log({ quantity:1, product:product.id, user: users.id});
+        const newItem = {product: product.id, quantity:1, user:users.id}
+        // delete newItem[`id`]
       dispatch(addToCartAsync(newItem));
-      toast.success("Product Added to Cart")
+        toast.success("Product Added to Cart")
+      }else{
+        toast.error("Product Already Added")
+      }
     }else{
-      toast.error("Product Already Added")
+      console.log("NO Products added to Cart")
     }
+    
    
     }
     
@@ -89,7 +94,7 @@ export default function ProductDetails() {
 
   return (
     <div className="bg-white">
-      {product && <div className="pt-6">
+      {product && (<div className="pt-6">
         <nav aria-label="Breadcrumb">
           <ol role="list" className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
             {product.breadcrumbs && product.breadcrumbs.map((breadcrumb) => (
@@ -131,14 +136,14 @@ export default function ProductDetails() {
           <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
             <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
               <img
-                src={product.images[0]}
+                src={product.images && product.images[0] ? product.images[0] : ''}
                 alt={product.title}
                 className="h-full w-full object-cover object-center"
               />
             </div>
             <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
               <img
-                src={product.images[1]}
+                src={product.images && product.images[1] ? product.images[1]:''}
                 alt={product.title}
                 className="h-full w-full object-cover object-center"
               />
@@ -146,7 +151,7 @@ export default function ProductDetails() {
           </div>
           <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
             <img
-              src={product.images[2]}
+              src={product.images && product.images[2] ? product.images[2]:''}
               alt={product.title}
               className="h-full w-full object-cover object-center"
             />
@@ -337,7 +342,7 @@ export default function ProductDetails() {
             </div>
           </div>
         </div>
-      </div>}
+      </div>)}
       
     </div>
   )

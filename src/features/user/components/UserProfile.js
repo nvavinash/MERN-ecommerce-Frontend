@@ -5,7 +5,7 @@ import { set, useForm } from "react-hook-form";
 
 export default function UserProfile() {
   const dispatch = useDispatch();
-  const user = useSelector(selectUserInfo);
+  const userInfo = useSelector(selectUserInfo);
   const [selecteEditIndex, setSelectedEditIndex] = useState(-1);
   const [showAddressForm, setShowAddressForm] = useState(false);
 
@@ -18,21 +18,21 @@ export default function UserProfile() {
   } = useForm();
 
   const handleEdit = (addressUpdate, index) => {
-    const newUser = { ...user, addresses: [...user.addresses] };
+    const newUser = { ...userInfo, addresses: [...userInfo.addresses] };
     newUser.addresses.splice(index, 1, addressUpdate);
     dispatch(updateUserAsync(newUser));
     setSelectedEditIndex(-1);
  
   };
   const handleRemove = (e, index) => {
-    const newUser = { ...user, addresses: [...user.addresses] };
+    const newUser = { ...userInfo, addresses: [...userInfo.addresses] };
     newUser.addresses.splice(index, 1);
     dispatch(updateUserAsync(newUser));
   };
 
   const handleEditForm = (index) => {
     setSelectedEditIndex(index);
-    const address = user.addresses[index];
+    const address = userInfo.addresses[index];
     setValue("name", address.name);
     setValue("email", address.email);
     setValue("phone", address.phone);
@@ -44,7 +44,7 @@ export default function UserProfile() {
 
   const handleAdd = (data) => {
     
-    const newUser = {...user, addresses:[...user.addresses , data]};
+    const newUser = {...userInfo, addresses:[...userInfo.addresses , data]};
     dispatch(updateUserAsync(newUser))
     setShowAddressForm(false)
   };
@@ -55,15 +55,15 @@ export default function UserProfile() {
         <div className="mx-auto mt-8 bg-white max-w-7xl py-4 px-4 sm:px-6 lg-px-8">
           <h1 className="text-3xl my-5 font-bold tracking-tight text-gray-900">
             {" "}
-            Name : {user.name ? user.name : " Guest "}
+            Name : {userInfo.name ? userInfo.name : "Guest"}
           </h1>
-          {user.role === "admin" && <h3 className="text-xl my-5 font-bold tracking-tight text-gray-900">
+          {userInfo.role === "admin" && <h3 className="text-xl my-5 font-bold tracking-tight text-gray-900">
               {" "}
-             Role :{user.role}
+             Role :{userInfo.role}
             </h3>}
           <h3 className="text-xl my-5 font-bold tracking-tight text-gray-900">
             {" "}
-            Email Address : {user.email ? user.email : " dem0@gmail.com "}
+            Email Address : {userInfo.email ? userInfo.email : "youremail@gmail.com "}
           </h3>
 
           <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
@@ -267,8 +267,8 @@ export default function UserProfile() {
        </div>
       
   {/* All user addresses will be display here form ============================ */}
-            {user.addresses &&
-              user.addresses.map((address, index) => (
+            {userInfo.addresses &&
+              userInfo.addresses.map((address, index) => (
                 <div>
                      {/* ============================ Edit Old Address =======*/}
          <div>

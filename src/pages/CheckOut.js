@@ -10,7 +10,7 @@ import { Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
   updateUserAsync,
-} from "../features/auth/authSlice";
+} from "../features/user/userSlice";
 import {
   createOrderAsync,
   selectCurrentOrder,
@@ -45,7 +45,7 @@ const CheckOut = () => {
         items,
         totalAmount,
         totalItems,
-        user,
+        user: user.id,
         paymentMethod,
         selectedAddress,
         status : "pending", //need to be changed as delivered,received
@@ -59,12 +59,12 @@ const CheckOut = () => {
   };
   
   const totalAmount = items.reduce((amount, item) => {
-    const price = item.discountPrice ? item.discountPrice : item.price;
-    return price * item.quantity + item.shippingCost + amount;
+    const price = item.product.discountPrice ? item.product.discountPrice : item.product.price;
+    return price * item.quantity + item.product.shippingCost + amount;
   }, 0);
 
   const handleQuantity = (e, item) => {
-    dispatch(updateCartAsync({ ...item, quantity: +e.target.value }));
+    dispatch(updateCartAsync({ item:item.id, quantity: +e.target.value }));
   };
 
   const handleRemove = (e, id) => {
@@ -82,7 +82,7 @@ const CheckOut = () => {
   return (
     <>
       {!items.length && <Navigate to="/" replace={true}></Navigate>}
-      {currentOrder && <Navigate to={`/orderSuccess/${currentOrder.id}`} replace={true}></Navigate>}
+      {currentOrder && <Navigate to={`/order-success/${currentOrder.id}`} replace={true}></Navigate>}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
           <div className="lg:col-span-3">
@@ -393,12 +393,12 @@ const CheckOut = () => {
               <div className="mt-8 border-t border-gray-200 px-4 py-6 sm:px-6">
                 <div className="flow-root">
                   <ul role="list" className="-my-6 divide-y divide-gray-200">
-                    {items.map((item) => (
+                    {items?.map((item) => (
                       <li key={item.id} className="flex py-6">
                         <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                           <img
-                            src={item.thumbnail}
-                            alt={item.imageAlt}
+                            src={item.product.thumbnail}
+                            alt={item.product.imageAlt}
                             className="h-full w-full object-cover object-center"
                           />
                         </div>
@@ -407,23 +407,23 @@ const CheckOut = () => {
                           <div>
                             <div className="flex justify-between text-base font-medium text-gray-900">
                               <h3>
-                                <a href={item.href}>{item.title}</a>
+                                <a href={item.product.href}>{item.product.title}</a>
                               </h3>
-                              {item.discountPrice && (
+                              {item.product.discountPrice && (
                                 <p className="line-through text-gray-700">
-                                  Rs.{item.price}
+                                  Rs.{item.product.price}
                                 </p>
                               )}
-                              {item.discountPrice ? (
-                                <p className="ml-2">Rs. {item.discountPrice}</p>
+                              {item.product.discountPrice ? (
+                                <p className="ml-2">Rs. {item.product.discountPrice}</p>
                               ) : (
                                 <p className="ml-2 strike-through">
-                                  Rs.{item.price}
+                                  Rs.{item.product.price}
                                 </p>
                               )}
                             </div>
                             <p className="mt-1 text-sm text-gray-500">
-                              {item.brand}
+                              {item.product.brand}
                             </p>
                           </div>
                           <div className="flex flex-1 items-end justify-between text-sm">
@@ -464,7 +464,7 @@ const CheckOut = () => {
               <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
               <div className="flex justify-between text-base font-medium text-gray-900">
                   <p>Shipping Cost</p>
-                  <p>Rs. {items[0]?.shippingCost}</p>
+                  <p>Rs. {items[0]?.product.shippingCost}</p>
                 </div>
                 <div className="flex justify-between text-base font-medium text-gray-900">
                   <p>Subtotal</p>

@@ -425,7 +425,7 @@ function ProductGrid({ data }) {
       <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
         <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {data.map((product) => (
-            <Link to= {!product.deleted ? `/productDetailsPage/${product.id}`:"/"} key={product.id}>
+            <Link to= {!product.deleted ? `/products/${product.id}`:"/"} key={product.id}>
            <div className="group relative">
                 {!product.deleted ? <span className="inline-flex z-40 items-center rounded-md bg-red-700  px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-gray-500/10">
                   {product.discountPrice

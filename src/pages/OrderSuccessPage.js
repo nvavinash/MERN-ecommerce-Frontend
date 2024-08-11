@@ -16,6 +16,7 @@ const OrderSuccessPage = () => {
   useEffect(()=>{
     //reset Cart
   dispatch(resetCartAsync(user.id));
+  console.log(user.id)
     //reset current order
     dispatch(resetOrder())
   },[dispatch,user])
