@@ -73,7 +73,7 @@ export default function ProductDetails() {
     if(items && product){
       if(items.findIndex(item => item.product.id === product.id)<0){
         // console.log({ quantity:1, product:product.id, user: users.id});
-        const newItem = {product: product.id, quantity:1, user:users.id}
+        const newItem = {product: product.id, quantity:1}
         // delete newItem[`id`]
       dispatch(addToCartAsync(newItem));
         toast.success("Product Added to Cart")

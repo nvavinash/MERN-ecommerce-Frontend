@@ -41,6 +41,7 @@ export default function Login() {
         onSubmit={handleSubmit((data,e) =>{ 
             e.preventDefault();
             dispatch(checkUserAsync(data))})}>
+              
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                 Email address

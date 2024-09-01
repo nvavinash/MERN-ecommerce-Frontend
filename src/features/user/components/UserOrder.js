@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { fetchLoggedInUserOrderAsync, selectUserInfo, selectUserOrders } from "../userSlice";
+import { fetchLoggedInUserOrderAsync, selectUserInfo, selectUserOrders,selectUserInfoStatus } from "../userSlice";
 
 export default function UserOrders() {
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserInfo);
   const orders = useSelector(selectUserOrders);
+  const status = useSelector(selectUserInfoStatus);
 
   useEffect(() => {
-    dispatch(fetchLoggedInUserOrderAsync(userInfo.id));
+    dispatch(fetchLoggedInUserOrderAsync());
     console.log(orders);
-  }, [dispatch, userInfo]);
+  }, [dispatch]);
 
   return (
-    <>
+    <>{status === 'loading'? <h1>"Its Loading"</h1> : null}
       {orders && orders.map((order) => (
         <div key={order.id}>
           <div className="mx-auto mt-8 bg-white max-w-7xl py-4 px-4 sm:px-6 lg-px-8">

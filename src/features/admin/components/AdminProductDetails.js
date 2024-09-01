@@ -66,7 +66,7 @@ export default function AdminProductDetails() {
   const params = useParams();
   const handleCart = (e) => {
     e.preventDefault();
-    const newItem = {...product,quantity:1, users:users.id}
+    const newItem = {...product,quantity:1}
    
     delete newItem[`id`]
     dispatch(addToCartAsync(newItem));

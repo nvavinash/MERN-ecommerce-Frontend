@@ -15,11 +15,10 @@ const OrderSuccessPage = () => {
 
   useEffect(()=>{
     //reset Cart
-  dispatch(resetCartAsync(user.id));
-  console.log(user.id)
+  dispatch(resetCartAsync());
     //reset current order
     dispatch(resetOrder())
-  },[dispatch,user])
+  },[dispatch])
   
   return (
     <>

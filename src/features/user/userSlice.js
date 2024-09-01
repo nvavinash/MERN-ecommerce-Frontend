@@ -8,8 +8,8 @@ const initialState = {
 
 export const fetchLoggedInUserOrderAsync = createAsyncThunk(
   'user/fetchLoggedInUserOrder',
-  async (id) => {
-    const response = await fetchLoggedInUserOrder(id);
+  async () => {
+    const response = await fetchLoggedInUserOrder();
     // The value we return becomes the `fulfilled` action payload
     return response.data;
   }
@@ -17,8 +17,8 @@ export const fetchLoggedInUserOrderAsync = createAsyncThunk(
 
 export const fetchLoggedInUserAsync = createAsyncThunk(
   'user/fetchLoggedInUser',
-  async(userId) => {
-  const response = await fetchLoggedInUser(userId);
+  async() => {
+  const response = await fetchLoggedInUser();
   return response.data;
 })
 
@@ -73,6 +73,7 @@ export const { increment} = userSlice.actions;
 
 export const selectUserOrders = (state) => state.user.userInfo.orders;
 export const selectUserInfo = (state) => state.user.userInfo;
+export const selectUserInfoStatus = (state) => state.user.status;
 
 
 export default userSlice.reducer;
