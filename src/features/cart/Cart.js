@@ -6,7 +6,6 @@ import {
   selectCartStatus,
   updateCartAsync,
   selectCartLoaded,
-  selectCartLoaded
 } from "./cartSlice";
 
 import { Link, Navigate } from "react-router-dom";

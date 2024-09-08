@@ -33,6 +33,7 @@ import AdminProductFormPage from "./pages/AdminProductFormPage";
 import AdminOrdersPage from "./pages/AdminOrdersPage";
 import {positions, Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic'; 
+import StripeCheckout from "./pages/StripeCheckout";
 
 
 const options = {
@@ -140,6 +141,13 @@ const router = createBrowserRouter([
   {
     path: "/forgotPassword",
     element: <ForgotPasswordPage />,
+  },
+  {
+    path: "/stripe-checkout/",
+    
+    element: (<Protected>
+      <StripeCheckout />
+      </Protected>)
   },
   {
     path: "*",
