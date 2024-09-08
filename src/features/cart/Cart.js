@@ -3,7 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   deleteItemFromCartAsync,
   selectItems,
+  selectCartStatus,
   updateCartAsync,
+  selectCartLoaded,
+  selectCartLoaded
 } from "./cartSlice";
 
 import { Link, Navigate } from "react-router-dom";
@@ -13,6 +16,9 @@ export default function Cart() {
   
   const dispatch = useDispatch();
   const items = useSelector(selectItems);
+  const cartLoaded = useSelector(selectCartLoaded);
+  const status = useSelector(selectCartStatus);
+
   const [openModal, setOpenModal] = useState(null);
  
 
@@ -39,7 +45,7 @@ export default function Cart() {
 
   return (
     <>
-      {!items.length && <Navigate to="/" replace={true}></Navigate>}
+      {!items.length && cartLoaded && <Navigate to="/" replace={true}></Navigate>}
 
       <div className="mx-auto mt-24 bg-white max-w-7xl px-4 sm:px-6 lg-px-8">
         <h1 className="text-3xl font-bold tracking-tight text-gray-900">

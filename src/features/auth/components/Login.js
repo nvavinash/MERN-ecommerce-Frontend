@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { checkUserAsync, selectError, selectLoggedInUser } from '../authSlice';
+import { loginUserAsync, selectError, selectLoggedInUser } from '../authSlice';
 import { toast, ToastContainer } from "react-toastify";
 
 
@@ -40,7 +40,7 @@ export default function Login() {
           <form className="space-y-6" noValidate 
         onSubmit={handleSubmit((data,e) =>{ 
             e.preventDefault();
-            dispatch(checkUserAsync(data))})}>
+            dispatch(loginUserAsync(data))})}>
               
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
