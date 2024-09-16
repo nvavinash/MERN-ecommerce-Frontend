@@ -8,9 +8,7 @@ import {
 } from "../features/cart/cartSlice";
 import { Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import {
-  updateUserAsync,
-} from "../features/user/userSlice";
+import { updateUserAsync } from "../features/user/userSlice";
 import {
   createOrderAsync,
   selectCurrentOrder,
@@ -36,9 +34,11 @@ const CheckOut = () => {
   const handleAddress = (e) => {
     setSeletedAddress(user.addresses[e.target.value]);
   };
+
   const handlePayment = (e) => {
     setPaymentMethod(e.target.value);
   };
+  
   const handleOrder = (e) => {
     if (selectedAddress && paymentMethod) {
       const order = {
@@ -48,8 +48,7 @@ const CheckOut = () => {
         user: user.id,
         paymentMethod,
         selectedAddress,
-        status : "pending", //need to be changed as delivered,received
- 
+        status: "pending", //need to be changed as delivered,received
       };
       dispatch(createOrderAsync(order));
       //need to redirect from here to new order succcess page
@@ -57,18 +56,19 @@ const CheckOut = () => {
       toast.error("Enter Address and Payment Method");
     }
   };
-  
+
   const totalAmount = items.reduce((amount, item) => {
-    const price = item.product.discountPrice ? item.product.discountPrice : item.product.price;
+    const price = item.product.discountPrice
+      ? item.product.discountPrice
+      : item.product.price;
     return price * item.quantity + item.product.shippingCost + amount;
   }, 0);
 
   const handleQuantity = (e, item) => {
-    dispatch(updateCartAsync({ item:item.id, quantity: +e.target.value }));
+    dispatch(updateCartAsync({ item: item.id, quantity: +e.target.value }));
   };
 
   const handleRemove = (e, id) => {
-  
     dispatch(deleteItemFromCartAsync(id));
   };
 
@@ -82,8 +82,15 @@ const CheckOut = () => {
   return (
     <>
       {!items.length && <Navigate to="/" replace={true}></Navigate>}
-      {currentOrder && currentOrder.paymentMethod === "cash" && (<Navigate to={`/order-success/${currentOrder.id}`} replace={true}></Navigate>)}
-      {currentOrder && currentOrder.paymentMethod === "card" && (<Navigate to={`/stripe-checkout/`} replace={true}></Navigate>)}
+      {currentOrder && currentOrder.paymentMethod === "cash" && (
+        <Navigate
+          to={`/order-success/${currentOrder.id}`}
+          replace={true}
+        ></Navigate>
+      )}
+      {currentOrder && currentOrder.paymentMethod === "card" && (
+        <Navigate to={`/stripe-checkout/`} replace={true}></Navigate>
+      )}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
           <div className="lg:col-span-3">
@@ -408,7 +415,9 @@ const CheckOut = () => {
                           <div>
                             <div className="flex justify-between text-base font-medium text-gray-900">
                               <h3>
-                                <a href={item.product.href}>{item.product.title}</a>
+                                <a href={item.product.href}>
+                                  {item.product.title}
+                                </a>
                               </h3>
                               {item.product.discountPrice && (
                                 <p className="line-through text-gray-700">
@@ -416,7 +425,9 @@ const CheckOut = () => {
                                 </p>
                               )}
                               {item.product.discountPrice ? (
-                                <p className="ml-2">Rs. {item.product.discountPrice}</p>
+                                <p className="ml-2">
+                                  Rs. {item.product.discountPrice}
+                                </p>
                               ) : (
                                 <p className="ml-2 strike-through">
                                   Rs.{item.product.price}
@@ -463,7 +474,7 @@ const CheckOut = () => {
               </div>
 
               <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-              <div className="flex justify-between text-base font-medium text-gray-900">
+                <div className="flex justify-between text-base font-medium text-gray-900">
                   <p>Shipping Cost</p>
                   <p>Rs. {items[0]?.product.shippingCost}</p>
                 </div>
