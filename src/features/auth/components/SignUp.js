@@ -13,9 +13,11 @@ export default function SignUp() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [showPassword,setShowPassword]= useState(false);
  
- 
-
+  const togglePasswordVisibility = ()=>{
+    setShowPassword(!showPassword);
+  }
   return (
     <>
       {user && <Navigate to="/" replace={true}></Navigate>}
@@ -73,12 +75,19 @@ export default function SignUp() {
                 >
                   Password
                 </label>
+                 {/* Show/Hide password text */}
+                  <span
+                  onClick={togglePasswordVisibility}
+                  className="right-0 pr-3 flex items-center text-sm leading-5 cursor-pointer text-blue-800"
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </span>
               </div>
               <div className="mt-2">
                 <input
                   id="password"
                   // name="password"
-                  type="password"
+                  type={showPassword ? "text" :"password"}
                   {...register("password", {
                     pattern: {
                       value: /^(?=.*[a-z])(?=.*[a-zA-Z]).{8,}$/,
@@ -86,7 +95,9 @@ export default function SignUp() {
                     },
                   })}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+            
+            />
+  
                 {errors.password && (
                   <p className="text-red-600">{errors.password.message}</p>
                 )}

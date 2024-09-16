@@ -8,7 +8,8 @@ import {
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectItems } from "../cart/cartSlice";
-import { selectLoggedInUser } from "../auth/authSlice";
+import { selectUserInfo } from "../user/userSlice";
+
 
 const navigation = [
   { name: "Dashboard", link: "#",  user: true },
@@ -33,7 +34,7 @@ function Navbar({ children }) {
 
   return (
     <>
-      <div className="min-h-full">
+      {userInfo && <div className="min-h-full">
         <Disclosure as="nav" className="bg-custom-nav">
           {({ open }) => (
             <>
@@ -260,7 +261,7 @@ function Navbar({ children }) {
             {children}
           </div>
         </main>
-      </div>
+      </div>}
     </>
   );
 }
