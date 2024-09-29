@@ -32,13 +32,13 @@ export const loginUserAsync = createAsyncThunk(
 )
 
 export const checkAuthAsync = createAsyncThunk(
-  'user/checnAuth',
-  async({rejectWithValue})=>{
+  'user/checkAuth',
+  async()=>{
     try {
       const response = await checkAuth();
       return response.data;
     } catch (error) {
-      return rejectWithValue(error)
+      console.log(error);
     }
   }
 )
@@ -110,5 +110,6 @@ export const { increment} = authSlice.actions;
 export const selectLoggedInUser = (state) => state.auth.loggedInUserToken; 
 export const selectError = (state) => state.auth.error;
 export const selectUserChecked = (state) => state.auth.userChecked;
+export const selectUserLoggedInStatus = (state) => state.auth.status;
 
 export default authSlice.reducer;

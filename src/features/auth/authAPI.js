@@ -1,7 +1,7 @@
 // A mock function to mimic making an async request for data
 export function createUser(userData) {
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8080/auth/signUp", {
+    const response = await fetch("/auth/signUp", {
       method: "POST",
       body: JSON.stringify(userData),
       headers: { "Content-Type": "application/json" },
@@ -14,7 +14,7 @@ export function createUser(userData) {
 export function loginUser(loginInfo) {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch("http://localhost:8080/auth/login", {
+      const response = await fetch("/auth/login", {
         method: "POST",
         body: JSON.stringify(loginInfo),
         headers: { "Content-Type": "application/json" },
@@ -42,7 +42,7 @@ export function signOut(userId) {
 export function checkAuth(){
   return new Promise(async (resolve,reject) => {
     try {
-    const response = await fetch('http://localhost:8080/auth/check');
+    const response = await fetch('/auth/check');
     if(response.ok){
       const data = await response.json();
       resolve({data});
@@ -51,7 +51,7 @@ export function checkAuth(){
       reject(error);
     }
     } catch (error) {
-      reject(error)
+      reject(error);
     }
 
   });

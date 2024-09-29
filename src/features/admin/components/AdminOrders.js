@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { ITEM_PER_PAGE } from "../../../app/constants";
 import {
   fetchAllOrdersAsync,
@@ -23,9 +21,9 @@ const AdminOrders = () => {
   const dispatch = useDispatch();
   const orders = useSelector(selectOrders);
   const totalOrders = useSelector(selectTotalOrders);
-  const [sort, setSort] = useState("");
+  const [sort, setSort] = useState({});
 
-  const handleShow = (e, item) => {
+  const handleShow = (e) => {
     e.preventDefault();
   };
   const handleEdit = (e, order) => {
@@ -80,6 +78,7 @@ const AdminOrders = () => {
                   <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                     <th className="py-3 px-6 text-center md:table-cell">
                       Order No.{" "}
+                    
                     </th>
                     <th className="py-3 px-6 text-center md:table-cell">
                       Item
@@ -126,18 +125,29 @@ const AdminOrders = () => {
                       <tr
                         key={order.id}
                         className="border-b border-gray-200 hover:bg-gray-100"
-                      >
+                      > 
                         {/* Order details */}
                         {/* Include responsive classes for table cells */}
                         <td className="py-3 px-6 text-left md:table-cell">
-                          <div className="flex items-center">
-                            <div className="mr-2"></div>
-                            <span className="font-medium">{order.id}</span>
-                          </div>
-                        </td>
+  <div className="flex items-center">
+    <div>
+      <p className="font-medium">{new Date(order.createdAt).toLocaleString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+        hour12: false, // 24-hour format
+      })}</p>
+      <p className="font-extralight">{order.id}</p>
+    </div>
+  </div>
+</td>
+
                         <td className="py-3 px-6 text-left md:table-cell">
                           {/* Item details */}
-                          {order.items.map((item,index) => (
+                          {order.items.map((item, index) => (
                             <div key={index} className="flex items-center">
                               <div className="mr-2">
                                 <img
@@ -146,10 +156,13 @@ const AdminOrders = () => {
                                 />
                               </div>
                               <span>
-                                {item.product.title} - Total Items:{item.product.quantity}
+                                {item.product.title} - Total Items:
+                                {item.product.quantity}
                                 <div>
                                   Rs:{item.product.discountPrice} + Shipping:{" "}
-                                  {item.product.shippingCost ? item.product.shippingCost : 0}{" "}
+                                  {item.product.shippingCost
+                                    ? item.product.shippingCost
+                                    : 0}{" "}
                                   rs.
                                 </div>
                               </span>

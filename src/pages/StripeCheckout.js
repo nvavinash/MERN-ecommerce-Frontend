@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route
-} from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-import CheckoutForm from "./CheckOutForm";
-// import CompletePage from "./CompletePage";
+import CheckoutForm from "./CheckoutForm";
 import "../Stripe.css";
-import { useSelector } from "react-redux";
 import { selectCurrentOrder } from "../features/order/orderSlice";
 
 // Make sure to call loadStripe outside of a component’s render to avoid
@@ -20,23 +14,18 @@ const stripePromise = loadStripe("pk_test_51Ohu3MSDNwTsA3NPUjC1rhUYMtKLCJ1Bbyy2z
 
 export default function StripeCheckout() {
   const [clientSecret, setClientSecret] = useState("");
-  const [dpmCheckerLink, setDpmCheckerLink] = useState("");
-  const currentOrder = useSelector(selectCurrentOrder);
+  const currentOrder = useSelector(selectCurrentOrder)
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    fetch("http:localhost:8080/create-payment-intent", {
+    fetch("/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ totalAmount : currentOrder.totalAmount }),
+      body: JSON.stringify({ totalAmount: currentOrder.totalAmount, orderId:currentOrder.id }),
     
     })
       .then((res) => res.json())
-      .then((data) => { 
-        setClientSecret(data.clientSecret);
-        // [DEV] For demo purposes only
-        setDpmCheckerLink(data.dpmCheckerLink);
-      });
+      .then((data) => setClientSecret(data.clientSecret));
   }, []);
 
   const appearance = {
@@ -48,17 +37,12 @@ export default function StripeCheckout() {
   };
 
   return (
-    <Router>
-      <div className="App">
-        {clientSecret && (
-          <Elements options={options} stripe={stripePromise}>
-            <Routes>
-              <Route path="/checkout" element={<CheckoutForm dpmCheckerLink={dpmCheckerLink}/>} />
-              {/* <Route path="/complete" element={<CompletePage />} /> */}
-            </Routes>
-          </Elements>
-        )}
-      </div>
-    </Router>
+    <div className="Stripe">
+      {clientSecret && (
+        <Elements options={options} stripe={stripePromise}>
+          <CheckoutForm/>
+        </Elements>
+      )}
+    </div>
   );
 }

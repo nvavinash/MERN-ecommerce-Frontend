@@ -10,12 +10,12 @@ export default function UserOrders() {
 
   useEffect(() => {
     dispatch(fetchLoggedInUserOrderAsync());
-    console.log(orders);
+    console.log({orders});
   }, [dispatch]);
 
   return (
-    <>{status === 'loading'? <h1>"Its Loading"</h1> : null}
-      {orders && orders.map((order) => (
+    <>{status === 'loading'? <h1 className="mx-auto mt-8 bg-white max-w-7xl py-4 px-4 sm:px-6 lg-px-8">"Its Loading"</h1> : null}
+      {orders && orders.slice().reverse().map((order) => (
         <div key={order.id}>
           <div className="mx-auto mt-8 bg-white max-w-7xl py-4 px-4 sm:px-6 lg-px-8">
             <h1 className="text-3xl my-5 font-bold tracking-tight text-gray-900">
@@ -61,6 +61,17 @@ export default function UserOrders() {
                           <p className="mt-1 text-sm text-gray-500">
                             {item.product.brand}
                           </p>
+                          <p className="mt-1 text-sm text-gray-500">
+                          {order.createdAt && new Date(order.createdAt).toLocaleString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                        hour: "numeric",
+                        minute: "numeric",
+                        // second: "numeric",
+                        hour12: true, // 24-hour format
+                      })} 
+                          </p>
                         </div>
                         <div className="flex flex-1 items-end justify-between text-sm">
                           <div className="text-gray-500 mx-50">
@@ -70,6 +81,7 @@ export default function UserOrders() {
                             >
                               Quantity : {item.quantity}
                             </label>
+                            
                           </div>
                         </div>
                       </div>
@@ -80,9 +92,9 @@ export default function UserOrders() {
             </div>
 
             <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-              <div className="flex justify-between text-sm text-gray-900">
+               <div className="flex justify-between text-sm text-gray-900">
                 <p>Shipping Cost</p>
-                <p>Rs. {order.shippingCost}</p>
+                <p>Rs. 80 </p>
               </div>
               <div className="flex justify-between text-base font-medium text-gray-900">
                 <p>Subtotal</p>

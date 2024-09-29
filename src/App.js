@@ -11,7 +11,6 @@ import Protected from "./features/auth/components/Protected";
 import {
   createBrowserRouter,
   RouterProvider,
-  Route,
   Link,
 } from "react-router-dom";
 import CheckOut from "./pages/CheckOut";
@@ -122,7 +121,7 @@ const router = createBrowserRouter([
   )},
  
   {
-    path: "/orders",
+    path: "/my-orders",
     element:(<Protected>
      <UserOrdersPage />{''}
      </Protected>)

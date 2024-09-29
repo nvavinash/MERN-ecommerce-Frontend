@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { loginUserAsync, selectError, selectLoggedInUser } from '../authSlice';
+import { loginUserAsync, selectError, selectLoggedInUser,selectUserLoggedInStatus } from '../authSlice';
 import { toast, ToastContainer } from "react-toastify";
 
 
@@ -11,6 +11,7 @@ export default function Login() {
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
   const error = useSelector(selectError);
+  const status = useSelector(selectUserLoggedInStatus);
   const {
     register,
     handleSubmit,
@@ -18,6 +19,7 @@ export default function Login() {
   } = useForm();
 
   const [showPassword,setShowPassword] = useState('false');
+  const [isLoading, setIsLoading] = useState(false);
   const togglePasswordVisibility = ()=>{
     setShowPassword(!showPassword);
   }
@@ -116,7 +118,7 @@ export default function Login() {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Log in
+                 {status=== "loading" ? <div className="spinner" id="spinner"></div> : "Login"}
               </button>
             </div>
           </form>

@@ -65,7 +65,7 @@ const CheckOut = () => {
   }, 0);
 
   const handleQuantity = (e, item) => {
-    dispatch(updateCartAsync({ item: item.id, quantity: +e.target.value }));
+    dispatch(updateCartAsync({ id: item.id, quantity: +e.target.value }));
   };
 
   const handleRemove = (e, id) => {
@@ -91,8 +91,6 @@ const CheckOut = () => {
       {currentOrder && currentOrder.paymentMethod === "card" && (
         <Navigate to={`/stripe-checkout/`} replace={true}></Navigate>
       )}
-      {currentOrder && currentOrder.paymentMethod === "cash" && (<Navigate to={`/order-success/${currentOrder.id}`} replace={true}></Navigate>)}
-      {currentOrder && currentOrder.paymentMethod === "card" && (<Navigate to={`/stripe-checkout/`} replace={true}></Navigate>)}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
           <div className="lg:col-span-3">
@@ -357,7 +355,7 @@ const CheckOut = () => {
                             value="cash"
                             name="payments"
                             type="radio"
-                            disabled
+                        
                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                           />
                           <label
@@ -455,6 +453,9 @@ const CheckOut = () => {
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
                               </select>
                             </div>
 

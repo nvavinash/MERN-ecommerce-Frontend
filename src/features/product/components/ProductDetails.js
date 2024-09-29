@@ -62,7 +62,6 @@ export default function ProductDetails() {
   const [selectedColor, setSelectedColor] = useState(colors[0])
   const [selectedSize, setSelectedSize] = useState(sizes[2])
   const product = useSelector(selectProductById)
-  const users = useSelector(selectLoggedInUser)
   const items = useSelector(selectItems)
   const alert = useAlert();
   const dispatch = useDispatch();
